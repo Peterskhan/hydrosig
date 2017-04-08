@@ -25,6 +25,7 @@
 
 #include "hydrosig.h"
 #include <iostream>
+#include <mutex>
 
 class Test : public hydrosig::trackable
 {
@@ -117,6 +118,7 @@ void multiple_connection_test8(int,int,int,int,int,int,int,int) {std::cout << "m
 
 int main()
 {
+    
     // Signals
     hydrosig::signal<void()> sig0;
     hydrosig::signal<void(int)> sig1;
@@ -699,6 +701,7 @@ int main()
     }
 
     std::cout << std::endl << std::endl;
+
 
     return 0;
 }

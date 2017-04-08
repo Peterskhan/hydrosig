@@ -28,6 +28,7 @@
  */
 #include <iostream>
 
+
 /*****************************************/
 #ifdef HYDROSIG_USE_HYDROGEN_CONTAINERS
 #include "../HContainers/HList/HList.h"
@@ -207,6 +208,15 @@ public:
         src.m_slots.clear();
 
         return *this;
+    }
+
+    /**
+     * @brief   Destroys the signal, and terminates all
+     *          established connections.
+     */
+    virtual ~signal_0()
+    {
+        clear();
     }
 
     /**

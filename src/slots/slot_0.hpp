@@ -173,7 +173,7 @@ private:
      *          the internally stored functor object.
      */
     void cleanup()
-    {
+    { 
         delete m_functor;
         m_functor = nullptr;
     }

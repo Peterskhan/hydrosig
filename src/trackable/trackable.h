@@ -214,7 +214,7 @@ public:
 private:
     destroy_notify_callback_list m_callbacks;   /**< The list of installed callbacks */
 
-public:
+protected:
     /**< The mutex used for thread synchronisation */
     #ifdef HYDROSIG_USE_THREAD_SYNCHRONISATION
     #ifdef HYDROSIG_USE_HYDROGEN_SYNCHRONISATION

@@ -212,6 +212,15 @@ public:
     }
 
     /**
+     * @brief   Destroys the signal, and terminates all
+     *          established connections.
+     */
+    virtual ~signal_2()
+    {
+        clear();
+    }
+
+    /**
      * @brief   Returns the number of connected slots.
      * @return  The number of connected slots.
      */
