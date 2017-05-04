@@ -27,48 +27,41 @@
  *
  */
 
-#include "functor_base/functor_base.hpp"
 #include "macros.h"
+#include "functor_base/functor_base.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
+ * Class declarations:
+ * -------------------
+ */
+
+/**
  * @brief   This class encapsulates a free function, such
  *          as a global or static member method with eight
  *          arguments.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_free_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_8_ARG
+class functor_to_free_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
+public:
     /**< Typedef for the function type */
     typedef Return_type(*function_type)(Arg1_type, Arg2_type, Arg3_type,
                                         Arg4_type, Arg5_type, Arg6_type,
                                         Arg7_type, Arg8_type);
 
-private:
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
-public:
     /**
      * @brief   Constructs a functor_to_free_8 from the
      *          given function pointer.
      */
-    functor_to_free_8(function_type function)
-        : m_function(function)
-    {}
+    functor_to_free_8(function_type function);
 
     /**
      * @brief   Calls the encapsulated function.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -76,40 +69,24 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return m_function(arg1,arg2,arg3,
-                              arg4,arg5,arg6,
-                              arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details eight functors compare equal, if they refer to the
      *          same free function.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_free_8 &other)
-    {
-        if(m_function == other.m_function)
-            return true;
-        return false;
-    }
+    bool operator==(const functor_to_free_8 &other);
+
+private:
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -117,31 +94,19 @@ public:
  * @brief   This class encapsulates a callable object, such
  *          as a lambda-expression, expecting eight arguments.
  */
-template<class Callable_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_callable_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_CALLABLE_8_ARG
+class functor_to_callable_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
-    Callable_type m_callable;   /**< The callable object */
-
 public:
     /**
      * @brief   Constructs a functor_to_callable_8 from the
      *          copy of the given callable object.
      */
-    functor_to_callable_8(Callable_type callable)
-        : m_callable(callable)
-    {}
+    functor_to_callable_8(Callable_type callable);
 
     /**
      * @brief   Calls the encapsulated function.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -149,23 +114,15 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        try {
-            return m_callable(arg1,arg2,arg3,
-                              arg4,arg5,arg6,
-                              arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
+
+private:
+    /**< The callable object */
+    Callable_type m_callable;
 
 };
 
@@ -173,39 +130,26 @@ public:
  * @brief   This class encapsulates a bound member function
  *          with eight arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_member_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+class functor_to_member_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type,
-                                                     Arg4_type, Arg5_type, Arg6_type,
-                                                     Arg7_type, Arg8_type);
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type,
+             Arg4_type, Arg5_type, Arg6_type,
+             Arg7_type, Arg8_type);
+
     /**
      * @brief   Constructs a functor_to_member_8 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_8(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_8(Object_type* object,
+                        function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -213,46 +157,27 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3,
-                                           arg4,arg5,arg6,
-                                           arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details eight functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_8 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_8 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -260,39 +185,26 @@ public:
  * @brief   This class encapsulates a const bound member function
  *          with eight arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_member_const_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+class functor_to_member_const_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type,
-                                                     Arg4_type, Arg5_type, Arg6_type,
-                                                     Arg7_type, Arg8_type) const;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type,
+             Arg4_type, Arg5_type, Arg6_type,
+             Arg7_type, Arg8_type) const;
+
     /**
      * @brief   Constructs a functor_to_member_const_8 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_const_8(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_const_8(Object_type* object,
+                              function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -300,46 +212,27 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3,
-                                           arg4,arg5,arg6,
-                                           arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details eight functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_const_8 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_const_8 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -347,39 +240,26 @@ public:
  * @brief   This class encapsulates a volatile bound member function
  *          with eight arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_member_volatile_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+class functor_to_member_volatile_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type,
-                                                     Arg4_type, Arg5_type, Arg6_type,
-                                                     Arg7_type, Arg8_type) volatile;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type,
+             Arg4_type, Arg5_type, Arg6_type,
+             Arg7_type, Arg8_type) volatile;
+
     /**
      * @brief   Constructs a functor_to_member_volatile_8 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_volatile_8(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_volatile_8(Object_type* object,
+                                 function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -387,46 +267,27 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3,
-                                           arg4,arg5,arg6,
-                                           arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details eight functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_volatile_8 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_volatile_8 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -434,39 +295,26 @@ public:
  * @brief   This class encapsulates a const volatile bound member function
  *          with eight arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
-class functor_to_member_const_volatile_8
-        : public functor_8_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type, Arg6_type,
-                                Arg7_type, Arg8_type>
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+class functor_to_member_const_volatile_8 : public functor_8_base<HYDROSIG_8_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type,
-                                                     Arg4_type, Arg5_type, Arg6_type,
-                                                     Arg7_type, Arg8_type) const volatile;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type,
+             Arg4_type, Arg5_type, Arg6_type,
+             Arg7_type, Arg8_type) const volatile;
+
     /**
      * @brief   Constructs a functor_to_member_const_volatile_8 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_const_volatile_8(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_const_volatile_8(Object_type* object,
+                                       function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
@@ -474,48 +322,256 @@ public:
      * @param   arg5 The fifth argument.
      * @param   arg6 The sixth argument.
      * @param   arg7 The seventh argument.
-     * @param   arg8 The eigth argument.
-     * @return  The result of the function call.
+     * @param   arg8 The eighth argument.
      */
     Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                            Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                           Arg7_type arg7, Arg8_type arg8)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3,
-                                           arg4,arg5,arg6,
-                                           arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+                           Arg7_type arg7, Arg8_type arg8);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details eight functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_const_volatile_8 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_const_volatile_8 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
+
+
+
+
+/**
+ * Member definitions:
+ * -------------------
+ */
+
+HYDROSIG_TEMPLATE_8_ARG
+functor_to_free_8<HYDROSIG_8_ARG>::functor_to_free_8(
+        function_type function)
+        : m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+Return_type functor_to_free_8<HYDROSIG_8_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+     Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+     Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return m_function(arg1, arg2, arg3,
+                          arg4, arg5, arg6,
+                          arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+bool functor_to_free_8<HYDROSIG_8_ARG>::operator==(
+        const functor_to_free_8 &other)
+{
+    if(m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_CALLABLE_8_ARG
+functor_to_callable_8<HYDROSIG_CALLABLE_8_ARG>::functor_to_callable_8(
+        Callable_type callable)
+    : m_callable(callable)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_CALLABLE_8_ARG
+Return_type functor_to_callable_8<HYDROSIG_CALLABLE_8_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+     Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+     Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return m_callable(arg1, arg2, arg3,
+                          arg4, arg5, arg6,
+                          arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+functor_to_member_8<HYDROSIG_OBJECT_8_ARG>::functor_to_member_8(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+Return_type functor_to_member_8<HYDROSIG_OBJECT_8_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+     Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+     Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3,
+                                       arg4, arg5, arg6,
+                                       arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+bool functor_to_member_8<HYDROSIG_OBJECT_8_ARG>::operator==(
+        const functor_to_member_8 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+functor_to_member_const_8<HYDROSIG_OBJECT_8_ARG>::functor_to_member_const_8(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+Return_type functor_to_member_const_8<HYDROSIG_OBJECT_8_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+     Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+     Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3,
+                                       arg4, arg5, arg6,
+                                       arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+bool functor_to_member_const_8<HYDROSIG_OBJECT_8_ARG>::operator==(
+        const functor_to_member_const_8 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+functor_to_member_volatile_8<HYDROSIG_OBJECT_8_ARG>::functor_to_member_volatile_8(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+Return_type functor_to_member_volatile_8<HYDROSIG_OBJECT_8_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+     Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+     Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3,
+                                       arg4, arg5, arg6,
+                                       arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+bool functor_to_member_volatile_8<HYDROSIG_OBJECT_8_ARG>::operator==(
+        const functor_to_member_volatile_8 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+functor_to_member_const_volatile_8<HYDROSIG_OBJECT_8_ARG>::
+functor_to_member_const_volatile_8(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+Return_type functor_to_member_const_volatile_8<HYDROSIG_OBJECT_8_ARG>
+::operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+             Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+             Arg7_type arg7, Arg8_type arg8)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3,
+                                       arg4, arg5, arg6,
+                                       arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_8_ARG
+bool functor_to_member_const_volatile_8<HYDROSIG_OBJECT_8_ARG>
+::operator==(
+        const functor_to_member_const_volatile_8 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
 
 
 HYDROSIG_NAMESPACE_END

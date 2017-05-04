@@ -27,20 +27,21 @@
  *
  */
 
-#include "trackable/trackable.h"
 #include "macros.h"
+
+#ifdef HYDROSIG_HYDROGEN_AVAILABLE
+# include ../HContainers/HList/HList.hpp
+# include ../HConcurrent/HMutex.h
+#else
+# include <list>
+# include <mutex>
+#endif
+
+#include "trackable/trackable.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
-
-/**
- * @brief   Abstract base class for all signal types.
- * @details This abstract class forms the base of all signal
- *          types, by defining the common (type-independent)
- *          behaviours, like: blocking, unblocking, and the
- *          destruction.
- */
 
 /**
  * @brief   This abstract base class defines the common,
@@ -56,12 +57,8 @@ HYDROSIG_NAMESPACE_BEGIN
  *          when it receives a destruction notification is also
  *          implemented in the derived signal classes.
  */
-class signal_base : public trackable
+class signal_base
 {
-protected:
-    /**< The blocking state of the signal */
-    bool m_blocked;
-
 public:
     /**
      * @brief   Constructs a signal in a non-blocked state.
@@ -111,14 +108,12 @@ public:
      */
     virtual void clear() = 0;
 
-    /**
-     * @brief   When notificated about that a slot has become
-     *          invalid and requests deletion, it removes the
-     *          slot.
-     * @param   destroyed Pointer to the slot that wants to be
-     *          deleted.
-     */
-    virtual void on_destruction_notification(notifyable* /*destroyed*/) = 0;
+protected:
+    /**< The blocking state of the signal */
+    bool m_blocked;
+
+    /**< Mutex used for synchronisation */
+    mutable HYDROSIG_MUTEX_TYPE m_mutex;
 
 };
 

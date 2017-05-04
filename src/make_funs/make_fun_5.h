@@ -27,16 +27,20 @@
  *
  */
 
-#include "functors/functor_5.hpp"
+#include <stdexcept>
+
 #include "macros.h"
+#include "functors/functor_5.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+/**
+ * Function declarations:
+ * ----------------------
+ */
+
 /**
  * @brief   Creates a functor from the given free function
  *          with five arguments.
@@ -45,58 +49,22 @@ template<class Return_type,
  * @param   function Pointer to the free function.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Return_type(*function)(Arg1_type, Arg2_type, Arg3_type,
-                                Arg4_type, Arg5_type))
-{
-    try {
-        return new functor_to_free_5<Return_type,
-                                     Arg1_type, Arg2_type, Arg3_type,
-                                     Arg4_type, Arg5_type>
-                   (function);
-    }
-    catch(...)
-    {
-        return nullptr;
-    }
-}
+HYDROSIG_TEMPLATE_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Return_type(*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type));
 
-template<class Callable_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
 /**
  * @brief   Creates a functor from the given callable
- *          object expecting five arguments.
+            object expecting five arguments.
  * @details Note that returned functor must be deleted
  *          manually.
  * @param   callable The callable object.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Callable_type callable)
-{
-    try {
-        return new functor_to_callable_5<Callable_type,
-                                         Return_type,
-                                         Arg1_type, Arg2_type, Arg3_type,
-                                         Arg4_type,Arg5_type>
-                   (callable);
-    }
-    catch(...)
-    {
-        return nullptr;
-    }
-}
+HYDROSIG_TEMPLATE_CALLABLE_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Callable_type callable);
 
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
 /**
  * @brief   Creates a functor from the given object
  *          and member function with five arguments.
@@ -106,29 +74,12 @@ template<class Object_type,
  * @param   function Pointer to the member function.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Object_type* object, Return_type(Object_type::*function)(Arg1_type, Arg2_type, Arg3_type,
-                                                                  Arg4_type, Arg5_type))
-{
-    try {
-        return new functor_to_member_5<Object_type,
-                                       Return_type,
-                                       Arg1_type, Arg2_type, Arg3_type,
-                                       Arg4_type, Arg5_type>
-                   (object, function);
-    }
-    catch(...)
-    {
-        return nullptr;
-    }
-}
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type));
 
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
 /**
  * @brief   Creates a functor from the given object
  *          and const member function with five arguments.
@@ -138,29 +89,13 @@ template<class Object_type,
  * @param   function Pointer to the member function.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Object_type* object, Return_type(Object_type::*function)(Arg1_type, Arg2_type, Arg3_type,
-                                                                  Arg4_type, Arg5_type) const)
-{
-    try {
-        return new functor_to_member_const_5<Object_type,
-                                             Return_type,
-                                             Arg1_type, Arg2_type, Arg3_type,
-                                             Arg4_type, Arg5_type>
-                   (object, function);
-    }
-    catch(...)
-    {
-        return nullptr;
-    }
-}
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         const);
 
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
 /**
  * @brief   Creates a functor from the given object
  *          and volatile member function with five arguments.
@@ -170,29 +105,13 @@ template<class Object_type,
  * @param   function Pointer to the member function.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Object_type* object, Return_type(Object_type::*function)(Arg1_type, Arg2_type, Arg3_type,
-                                                                  Arg4_type, Arg5_type) volatile)
-{
-    try {
-        return new functor_to_member_volatile_5<Object_type,
-                                                Return_type,
-                                                Arg1_type, Arg2_type, Arg3_type,
-                                                Arg4_type, Arg5_type>
-                   (object, function);
-    }
-    catch(...)
-    {
-        return nullptr;
-    }
-}
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         volatile);
 
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
 /**
  * @brief   Creates a functor from the given object
  *          and const volatile member function with five arguments.
@@ -202,22 +121,128 @@ template<class Object_type,
  * @param   function Pointer to the member function.
  * @return  A pointer to the created functor.
  */
-functor_5_base<Return_type,
-               Arg1_type, Arg2_type, Arg3_type,
-               Arg4_type, Arg5_type>*
-make_fun(Object_type* object, Return_type(Object_type::*function)(Arg1_type, Arg2_type, Arg3_type,
-                                                                  Arg4_type, Arg5_type) const volatile)
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         const volatile);
+
+
+
+
+/**
+ * Function definitions:
+ * ---------------------
+ */
+
+HYDROSIG_TEMPLATE_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Return_type(*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type))
+{
+    if(function == nullptr)
+        throw std::invalid_argument("Nullptr provided as functor argument.");
+
+    try {
+        return new functor_to_free_5<HYDROSIG_5_ARG>
+                   (function);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_CALLABLE_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Callable_type callable)
 {
     try {
-        return new functor_to_member_const_volatile_5<Object_type,
-                                                      Return_type,
-                                                      Arg1_type, Arg2_type, Arg3_type,
-                                                      Arg4_type, Arg5_type>
+        return new functor_to_callable_5<HYDROSIG_CALLABLE_5_ARG>
+                   (callable);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type))
+{
+    if(function == nullptr || object == nullptr)
+        throw std::invalid_argument("Nullptr provided as functor argument.");
+
+    try {
+        return new functor_to_member_5<HYDROSIG_OBJECT_5_ARG>
                    (object, function);
     }
     catch(...)
     {
-        return nullptr;
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         const)
+{
+    if(function == nullptr || object == nullptr)
+        throw std::invalid_argument("Nullptr provided as functor argument.");
+
+    try {
+        return new functor_to_member_const_5<HYDROSIG_OBJECT_5_ARG>
+                   (object, function);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         volatile)
+{
+    if(function == nullptr || object == nullptr)
+        throw std::invalid_argument("Nullptr provided as functor argument.");
+
+    try {
+        return new functor_to_member_volatile_5<HYDROSIG_OBJECT_5_ARG>
+                   (object, function);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_5_ARG
+functor_5_base<HYDROSIG_5_ARG>* make_fun(Object_type* object,
+                                         Return_type(Object_type::*function)
+                                         (Arg1_type, Arg2_type, Arg3_type,
+                                          Arg4_type, Arg5_type)
+                                         const volatile)
+{
+    if(function == nullptr || object == nullptr)
+        throw std::invalid_argument("Nullptr provided as functor argument.");
+
+    try {
+        return new functor_to_member_const_volatile_5<HYDROSIG_OBJECT_5_ARG>
+                   (object, function);
+    }
+    catch(...)
+    {
+        throw;
     }
 }
 

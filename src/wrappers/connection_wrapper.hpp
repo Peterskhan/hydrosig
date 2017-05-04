@@ -49,162 +49,131 @@ HYDROSIG_NAMESPACE_BEGIN
  * --------------------------------------------------
  */
 
-template<class Return_type,
-         class Arg1_type = no_arg, class Arg2_type = no_arg, class Arg3_type = no_arg,
-         class Arg4_type = no_arg, class Arg5_type = no_arg, class Arg6_type = no_arg,
-         class Arg7_type = no_arg, class Arg8_type = no_arg>
+HYDROSIG_TEMPLATE_PORTABLE_WRAPPER_BASE
 /**
  * @brief   Convenience wrapper for connections with eight arguments.
  * @details Connections with less arguments are specialized types of
  *          this template.
  */
 class connection
-        : public connection_8<Return_type,
-                              Arg1_type, Arg2_type, Arg3_type,
-                              Arg4_type, Arg5_type, Arg6_type,
-                              Arg7_type, Arg8_type>
+        : public connection_8<HYDROSIG_8_ARG>
 {
-
+public:
+    connection(const connection_8<HYDROSIG_8_ARG> &src)
+        : connection_8<HYDROSIG_8_ARG>(src)
+    {}
 };
 
-
-template<class Return_type>
+HYDROSIG_TEMPLATE_0_ARG
 /**
  * @brief   Convenience wrapper for connections with zero arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 no_arg, no_arg, no_arg,
-                 no_arg, no_arg, no_arg,
-                 no_arg, no_arg>
-      : public connection_0<Return_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_0_ARG>
+      : public connection_0<HYDROSIG_0_ARG>
 {
-
+public:
+    connection(const connection_0<HYDROSIG_0_ARG> &src)
+        : connection_0<HYDROSIG_0_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type>
+HYDROSIG_TEMPLATE_1_ARG
 /**
  * @brief   Convenience wrapper for connections with one arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type,
-                 no_arg, no_arg, no_arg,
-                 no_arg, no_arg, no_arg,
-                 no_arg>
-      : public connection_1<Return_type,
-                            Arg1_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_1_ARG>
+      : public connection_1<HYDROSIG_1_ARG>
 {
-
+public:
+    connection(const connection_1<HYDROSIG_1_ARG> &src)
+        : connection_1<HYDROSIG_1_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type>
+HYDROSIG_TEMPLATE_2_ARG
 /**
  * @brief   Convenience wrapper for connections with two arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type,
-                 no_arg, no_arg, no_arg,
-                 no_arg, no_arg, no_arg>
-      : public connection_2<Return_type,
-                            Arg1_type, Arg2_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_2_ARG>
+      : public connection_2<HYDROSIG_2_ARG>
 {
-
+public:
+    connection(const connection_2<HYDROSIG_2_ARG> &src)
+        : connection_2<HYDROSIG_2_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
 /**
  * @brief   Convenience wrapper for connections with three arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type, Arg3_type,
-                 no_arg, no_arg, no_arg,
-                 no_arg, no_arg>
-      : public connection_3<Return_type,
-                            Arg1_type, Arg2_type, Arg3_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_3_ARG>
+      : public connection_3<HYDROSIG_3_ARG>
 {
-
+public:
+    connection(const connection_3<HYDROSIG_3_ARG> &src)
+        : connection_3<HYDROSIG_3_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type>
+HYDROSIG_TEMPLATE_4_ARG
 /**
  * @brief   Convenience wrapper for connections with four arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type, Arg3_type,
-                 Arg4_type,
-                 no_arg, no_arg, no_arg,
-                 no_arg>
-      : public connection_4<Return_type,
-                            Arg1_type, Arg2_type, Arg3_type,
-                            Arg4_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_4_ARG>
+      : public connection_4<HYDROSIG_4_ARG>
 {
-
+public:
+    connection(const connection_4<HYDROSIG_4_ARG> &src)
+        : connection_4<HYDROSIG_4_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+HYDROSIG_TEMPLATE_5_ARG
 /**
  * @brief   Convenience wrapper for connections with five arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type, Arg3_type,
-                 Arg4_type, Arg5_type,
-                 no_arg, no_arg, no_arg>
-      : public connection_5<Return_type,
-                            Arg1_type, Arg2_type, Arg3_type,
-                            Arg4_type, Arg5_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_5_ARG>
+      : public connection_5<HYDROSIG_5_ARG>
 {
-
+public:
+    connection(const connection_5<HYDROSIG_5_ARG> &src)
+        : connection_5<HYDROSIG_5_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type>
+HYDROSIG_TEMPLATE_6_ARG
 /**
  * @brief   Convenience wrapper for connections with six arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type, Arg3_type,
-                 Arg4_type, Arg5_type, Arg6_type,
-                 no_arg, no_arg>
-      : public connection_6<Return_type,
-                            Arg1_type, Arg2_type, Arg3_type,
-                            Arg4_type, Arg5_type, Arg6_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_6_ARG>
+      : public connection_6<HYDROSIG_6_ARG>
 {
-
+public:
+    connection(const connection_6<HYDROSIG_6_ARG> &src)
+        : connection_6<HYDROSIG_6_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type>
+HYDROSIG_TEMPLATE_7_ARG
 /**
  * @brief   Convenience wrapper for connections with seven arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class connection<Return_type,
-                 Arg1_type, Arg2_type, Arg3_type,
-                 Arg4_type, Arg5_type, Arg6_type,
-                 Arg7_type,
-                 no_arg>
-      : public connection_7<Return_type,
-                            Arg1_type, Arg2_type, Arg3_type,
-                            Arg4_type, Arg5_type, Arg6_type,
-                            Arg7_type>
+class connection<HYDROSIG_PORTABLE_WRAPPER_7_ARG>
+      : public connection_7<HYDROSIG_7_ARG>
 {
-
+public:
+    connection(const connection_7<HYDROSIG_7_ARG> &src)
+        : connection_7<HYDROSIG_7_ARG>(src)
+    {}
 };
 
 
@@ -213,140 +182,393 @@ class connection<Return_type,
  * -------------------------------------------------
  */
 
-template<class Return_type>
+HYDROSIG_TEMPLATE_0_ARG
 /**
  * @brief   Convenience wrapper for connections with no arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type()>
-    : public connection_0<Return_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_0_ARG>
+    : public connection_0<HYDROSIG_0_ARG>
 {
-
+public:
+    connection(const connection_0<HYDROSIG_0_ARG> &src)
+        : connection_0<HYDROSIG_0_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type>
+HYDROSIG_TEMPLATE_1_ARG
 /**
  * @brief   Convenience wrapper for connections with one arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type)>
-    : public connection_1<Return_type,
-                          Arg1_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_1_ARG>
+    : public connection_1<HYDROSIG_1_ARG>
 {
-
+public:
+    connection(const connection_1<HYDROSIG_1_ARG> &src)
+        : connection_1<HYDROSIG_1_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type>
+HYDROSIG_TEMPLATE_2_ARG
 /**
  * @brief   Convenience wrapper for connections with two arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type)>
-    : public connection_2<Return_type,
-                          Arg1_type,Arg2_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_2_ARG>
+    : public connection_2<HYDROSIG_2_ARG>
 {
-
+public:
+    connection(const connection_2<HYDROSIG_2_ARG> &src)
+        : connection_2<HYDROSIG_2_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
 /**
  * @brief   Convenience wrapper for connections with three arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type)>
-    : public connection_3<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_3_ARG>
+    : public connection_3<HYDROSIG_3_ARG>
 {
-
+public:
+    connection(const connection_3<HYDROSIG_3_ARG> &src)
+        : connection_3<HYDROSIG_3_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type>
+HYDROSIG_TEMPLATE_4_ARG
 /**
  * @brief   Convenience wrapper for connections with four arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                             Arg4_type)>
-    : public connection_4<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type,
-                          Arg4_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_4_ARG>
+    : public connection_4<HYDROSIG_4_ARG>
 {
-
+public:
+    connection(const connection_4<HYDROSIG_4_ARG> &src)
+        : connection_4<HYDROSIG_4_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+HYDROSIG_TEMPLATE_5_ARG
 /**
  * @brief   Convenience wrapper for connections with five arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                             Arg4_type,Arg5_type)>
-    : public connection_5<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type,
-                          Arg4_type,Arg5_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_5_ARG>
+    : public connection_5<HYDROSIG_5_ARG>
 {
-
+public:
+    connection(const connection_5<HYDROSIG_5_ARG> &src)
+        : connection_5<HYDROSIG_5_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type>
+HYDROSIG_TEMPLATE_6_ARG
 /**
  * @brief   Convenience wrapper for connections with six arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                             Arg4_type,Arg5_type,Arg6_type)>
-    : public connection_6<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type,
-                          Arg4_type,Arg5_type,Arg6_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_6_ARG>
+    : public connection_6<HYDROSIG_6_ARG>
 {
-
+public:
+    connection(const connection_6<HYDROSIG_6_ARG> &src)
+        : connection_6<HYDROSIG_6_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type>
+HYDROSIG_TEMPLATE_7_ARG
 /**
  * @brief   Convenience wrapper for connections with seven arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                             Arg4_type,Arg5_type,Arg6_type,
-                             Arg7_type)>
-    : public connection_7<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type,
-                          Arg4_type,Arg5_type,Arg6_type,
-                          Arg7_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_7_ARG>
+    : public connection_7<HYDROSIG_7_ARG>
 {
-
+public:
+    connection(const connection_7<HYDROSIG_7_ARG> &src)
+        : connection_7<HYDROSIG_7_ARG>(src)
+    {}
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
+HYDROSIG_TEMPLATE_8_ARG
 /**
  * @brief   Convenience wrapper for connections with eight arguments.
  * @details This template version uses the elegant syntax.
  */
-class connection<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                             Arg4_type,Arg5_type,Arg6_type,
-                             Arg7_type,Arg8_type)>
-    : public connection_8<Return_type,
-                          Arg1_type,Arg2_type,Arg3_type,
-                          Arg4_type,Arg5_type,Arg6_type,
-                          Arg7_type,Arg8_type>
+class connection<HYDROSIG_ELEGANT_WRAPPER_8_ARG>
+    : public connection_8<HYDROSIG_8_ARG>
 {
+public:
+    connection(const connection_8<HYDROSIG_8_ARG> &src)
+        : connection_8<HYDROSIG_8_ARG>(src)
+    {}
+};
 
+/**
+ * Convenience scoped_connection wrappers - portable syntax.
+ * ---------------------------------------------------------
+ */
+
+HYDROSIG_TEMPLATE_PORTABLE_WRAPPER_BASE
+/**
+ * @brief   Convenience wrapper for scoped_connections with eight arguments.
+ * @details Connections with less arguments are specialized types of
+ *          this template.
+ */
+class scoped_connection
+        : public scoped_connection_8<HYDROSIG_8_ARG>
+{
+public:
+    scoped_connection(const connection_8<HYDROSIG_8_ARG> &src)
+        : scoped_connection_8<HYDROSIG_8_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_0_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with zero arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_0_ARG>
+      : public scoped_connection_0<HYDROSIG_0_ARG>
+{
+public:
+    scoped_connection(const connection_0<HYDROSIG_0_ARG> &src)
+        : scoped_connection_0<HYDROSIG_0_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_1_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with one arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_1_ARG>
+      : public scoped_connection_1<HYDROSIG_1_ARG>
+{
+public:
+    scoped_connection(const connection_1<HYDROSIG_1_ARG> &src)
+        : scoped_connection_1<HYDROSIG_1_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_2_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with two arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_2_ARG>
+      : public scoped_connection_2<HYDROSIG_2_ARG>
+{
+public:
+    scoped_connection(const connection_2<HYDROSIG_2_ARG> &src)
+        : scoped_connection_2<HYDROSIG_2_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_3_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with three arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_3_ARG>
+      : public scoped_connection_3<HYDROSIG_3_ARG>
+{
+public:
+    scoped_connection(const connection_3<HYDROSIG_3_ARG> &src)
+        : scoped_connection_3<HYDROSIG_3_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_4_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with four arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_4_ARG>
+      : public scoped_connection_4<HYDROSIG_4_ARG>
+{
+public:
+    scoped_connection(const connection_4<HYDROSIG_4_ARG> &src)
+        : scoped_connection_4<HYDROSIG_4_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_5_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with five arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_5_ARG>
+      : public scoped_connection_5<HYDROSIG_5_ARG>
+{
+public:
+    scoped_connection(const connection_5<HYDROSIG_5_ARG> &src)
+        : scoped_connection_5<HYDROSIG_5_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_6_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with six arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_6_ARG>
+      : public scoped_connection_6<HYDROSIG_6_ARG>
+{
+public:
+    scoped_connection(const connection_6<HYDROSIG_6_ARG> &src)
+        : scoped_connection_6<HYDROSIG_6_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_7_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with seven arguments.
+ * @details Specialized from the template wrapper for eight arguments.
+ */
+class scoped_connection<HYDROSIG_PORTABLE_WRAPPER_7_ARG>
+      : public scoped_connection_7<HYDROSIG_7_ARG>
+{
+public:
+    scoped_connection(const connection_7<HYDROSIG_7_ARG> &src)
+        : scoped_connection_7<HYDROSIG_7_ARG>(src)
+    {}
+};
+
+/**
+ * Convenience scoped_connection wrappers - elegant syntax.
+ * --------------------------------------------------------
+ */
+
+HYDROSIG_TEMPLATE_0_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with no arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_0_ARG>
+    : public scoped_connection_0<HYDROSIG_0_ARG>
+{
+public:
+    scoped_connection(const connection_0<HYDROSIG_0_ARG> &src)
+        : scoped_connection_0<HYDROSIG_0_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_1_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with one arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_1_ARG>
+    : public scoped_connection_1<HYDROSIG_1_ARG>
+{
+public:
+    scoped_connection(const connection_1<HYDROSIG_1_ARG> &src)
+        : scoped_connection_1<HYDROSIG_1_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_2_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with two arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_2_ARG>
+    : public scoped_connection_2<HYDROSIG_2_ARG>
+{
+public:
+    scoped_connection(const connection_2<HYDROSIG_2_ARG> &src)
+        : scoped_connection_2<HYDROSIG_2_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_3_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with three arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_3_ARG>
+    : public scoped_connection_3<HYDROSIG_3_ARG>
+{
+public:
+    scoped_connection(const connection_3<HYDROSIG_3_ARG> &src)
+        : scoped_connection_3<HYDROSIG_3_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_4_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with four arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_4_ARG>
+    : public scoped_connection_4<HYDROSIG_4_ARG>
+{
+public:
+    scoped_connection(const connection_4<HYDROSIG_4_ARG> &src)
+        : scoped_connection_4<HYDROSIG_4_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_5_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with five arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_5_ARG>
+    : public scoped_connection_5<HYDROSIG_5_ARG>
+{
+public:
+    scoped_connection(const connection_5<HYDROSIG_5_ARG> &src)
+        : scoped_connection_5<HYDROSIG_5_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_6_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with six arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_6_ARG>
+    : public scoped_connection_6<HYDROSIG_6_ARG>
+{
+public:
+    scoped_connection(const connection_6<HYDROSIG_6_ARG> &src)
+        : scoped_connection_6<HYDROSIG_6_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_7_ARG
+/**
+ * @brief   Convenience wrapper for scoped_connections with seven arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_7_ARG>
+    : public scoped_connection_7<HYDROSIG_7_ARG>
+{
+public:
+    scoped_connection(const connection_7<HYDROSIG_7_ARG> &src)
+        : scoped_connection_7<HYDROSIG_7_ARG>(src)
+    {}
+};
+
+HYDROSIG_TEMPLATE_8_ARG
+/**
+ * @brief   Convenience wrapper for connections with eight arguments.
+ * @details This template version uses the elegant syntax.
+ */
+class scoped_connection<HYDROSIG_ELEGANT_WRAPPER_8_ARG>
+    : public scoped_connection_8<HYDROSIG_8_ARG>
+{
+public:
+    scoped_connection(const connection_8<HYDROSIG_8_ARG> &src)
+        : scoped_connection_8<HYDROSIG_8_ARG>(src)
+    {}
 };
 
 

@@ -27,8 +27,8 @@
  *
  */
 
-#include "trackable/trackable.h"
 #include "macros.h"
+#include "trackable/trackable.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN
@@ -42,27 +42,34 @@ HYDROSIG_NAMESPACE_BEGIN
  *          implements the blocking mechanism for individual
  *          slots, informing the holding signal if it should
  *          skip the activation of the slot upon being emitted.
- *          Checking for functor validity, destruction notification
- *          handling and cleanup functionality are implemented
- *          in the derived slot classes.
  */
-class slot_base : public trackable
+class slot_base
 {
-private:
-    bool m_blocked;                 /**< The state of blocking */
-
 public:
     /**
      * @brief   Constructs a slot_base object.
      * @details The state of blocking will be
      *          initialized to false.
      */
-    slot_base();
+    slot_base(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator);
 
     /**
      * @brief   Destroys the slot_base.
      */
     virtual ~slot_base();
+
+    /**
+     * @brief   Returns whether the slot is valid.
+     * @return  True if the slot is valid, false otherwise.
+     */
+    bool isValid() const;
+
+    /**
+     * @brief   Returns a shared pointer to the validator
+     *          of the slot.
+     * @return  Pointer to the slot's validator.
+     */
+    HYDROSIG_SHARED_PTR_TYPE<connection_validator> getValidator() const;
 
     /**
      * @brief   Sets the blocking state of the slot.
@@ -84,29 +91,15 @@ public:
      */
     bool isBlocked() const;
 
-    /**
-     * @brief   Returns whether the slot contains no functor.
-     * @return  True if the slot is empty.
-     */
-    virtual bool empty() const = 0;
+protected:
+    /**< The state of blocking */
+    bool m_blocked;
 
-    /**
-     * @brief   When notificated about the destruction of the
-     *          object used in the slot, the slot becomes
-     *          invalid, it removes callbacks associated with
-     *          the destroyed object, and asks the signal holding
-     *          the slot to delete it. Disconnection takes place
-     *          in the destructor, when the slot is deleted by the
-     *          signal.
-     * @param   destroyed The destroyed object.
-     */
-    virtual void on_destruction_notification(notifyable* /*destroyed*/) = 0;
+    /**< The connection validator for the slot */
+    HYDROSIG_SHARED_PTR_TYPE<connection_validator> m_validator;
 
-    /**
-     * @brief   Invalidates the slot by deleting
-     *          the internally stored functor object.
-     */
-    virtual void cleanup() = 0;
+    /**< The mutex used for synchronisation */
+    HYDROSIG_MUTEX_TYPE m_mutex;
 
 };
 

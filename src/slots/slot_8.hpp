@@ -27,176 +27,140 @@
  *
  */
 
+#include "macros.h"
 #include "slot_base/slot_base.h"
 #include "functors/functor_8.hpp"
-#include "macros.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
+/**
+ * Class declarations:
+ * -------------------
+ */
+
 /**
  * @brief   This class represents a slot holding a
  *          functor which accept eight arguments.
  */
+HYDROSIG_TEMPLATE_8_ARG
 class slot_8 : public slot_base
 {
 public:
     /**< Typedef for the functor type */
-    typedef functor_8_base<Return_type,
-                           Arg1_type, Arg2_type, Arg3_type,
-                           Arg4_type, Arg5_type, Arg6_type,
-                           Arg7_type, Arg8_type>
+    typedef functor_8_base<HYDROSIG_8_ARG>
     functor_type;
 
-private:
-    functor_type* m_functor;        /**< The functor to the encapsulated function */
-
-public:
     /**
      * @brief   Constructs a slot_8 from a pointer to
      *          a functor.
-     * @details If no functor is provided the created
-     *          slot is invalid, and empty() returns
-     *          true. Activating an invalid slot does
-     *          not result in undefined behaviour.
      * @param   functor_ptr Pointer to the functor object.
      */
-    slot_8(functor_type* functor_ptr = nullptr)
-        : slot_base(),
-          m_functor(functor_ptr)
-    {
-        ;
-    }
+    slot_8(functor_type* functor_ptr,
+           HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator);
 
     /**
-     * @brief   Copy constructing a slot is disallowed, because
-     *          of the complicated callback relations with
-     *          the (potentially) connected object and the
-     *          holding signal object.
+     * @brief   Copy constructing a slot is disallowed.
      */
     slot_8(const slot_8& /*src*/) = delete;
 
     /**
-     * @brief   Move constructing a slot is disallowed, because
-     *          of the complicated callback relations with
-     *          the (potentially) connected object and the
-     *          holding signal object.
+     * @brief   Move constructing a slot is disallowed.
      */
     slot_8(slot_8&& /*src*/) = delete;
 
     /**
-     * @brief   Assignment of a slot is disallowed, because
-     *          of the complicated callback relations with
-     *          the (potentially) connected object and the
-     *          holding signal object.
+     * @brief   Assignment of a slot is disallowed.
      */
     slot_8& operator=(const slot_8& /*src*/) = delete;
 
     /**
-     * @brief   Move assignment of a slot is disallowed, because
-     *          of the complicated callback relations with
-     *          the (potentially) connected object and the
-     *          holding signal object.
+     * @brief   Move assignment of a slot is disallowed.
      */
     slot_8& operator=(slot_8&& /*src*/) = delete;
 
     /**
      * @brief   Destroys the slot_8 object.
-     * @details Upon destruction the slot disconnects
-     *          automatically it's connection, by deleting
-     *          the internally stored functor and executing
-     *          all installed destruction notification
-     *          callbacks.
      */
-    virtual ~slot_8()
-    {
-        cleanup();
-        notify_callbacks();
-    }
+    virtual ~slot_8();
 
     /**
      * @brief   Returns the internally stored functor object.
-     * @return  The functor object.
+     * @return  Pointer to the functor object.
      */
-    functor_type* get_functor() const
-    {
-        return m_functor;
-    }
-
-    /**
-     * @brief   Returns whether the slot contains no functor.
-     * @return  True if the slot is empty.
-     */
-    bool empty() const
-    {
-        return (m_functor == nullptr);
-    }
+    functor_type* get_functor() const;
 
     /**
      * @brief   Activates the internally stored functor object.
-     * @param   The first argument.
-     * @param   The second argument.
-     * @param   The third argument.
-     * @param   The fourth argument.
-     * @param   The fifth argument.
-     * @param   The sixth argument.
-     * @param   The seventh argument.
-     * @param   The eight argument.
      * @return  The result of calling the functor.
+     * @param   arg1 The first argument.
+     * @param   arg2 The second argument.
+     * @param   arg3 The third argument.
+     * @param   arg4 The fourth argument.
+     * @param   arg5 The fifth argument.
+     * @param   arg6 The sixth argument.
+     * @param   arg7 The seventh argument.
+     * @param   arg8 The eighth argument.
      */
     Return_type activate(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
                          Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
-                         Arg7_type arg7, Arg8_type arg8)
-    {
-        try {
-            return (*m_functor)(arg1,arg2,arg3,
-                                arg4,arg5,arg6,
-                                arg7,arg8);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
-
-    /**
-     * @brief   When notificated about the destruction of the
-     *          object used in the slot, the slot becomes
-     *          invalid, it removes callbacks associated with
-     *          the destroyed object, and asks the signal holding
-     *          the slot to delete it. Disconnection takes place
-     *          in the destructor, when the slot is deleted by the
-     *          signal.
-     * @param   destroyed The destroyed object.
-     */
-    void on_destruction_notification(notifyable* destroyed)
-    {
-        // Removing callbacks associated with the
-        // destroyed object
-        trackable::on_destruction_notification(destroyed);
-
-        // Notifying the holding signal to delete
-        // this slot
-        notify_callbacks();
-    }
+                         Arg7_type arg7, Arg8_type arg8);
 
 private:
-    /**
-     * @brief   Invalidates the slot by deleting
-     *          the internally stored functor object.
-     */
-    void cleanup()
-    {
-        delete m_functor;
-        m_functor = nullptr;
-    }
+    /**< The functor to the encapsulated function */
+    HYDROSIG_UNIQUE_PTR_TYPE<functor_type> m_functor;
 
 };
+
+/**
+ * Member definitions:
+ * -------------------
+ */
+
+HYDROSIG_TEMPLATE_8_ARG
+slot_8<HYDROSIG_8_ARG>::slot_8(
+        functor_type* functor_ptr,
+        HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator)
+    : slot_base(validator),
+      m_functor(functor_ptr)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+slot_8<HYDROSIG_8_ARG>::~slot_8()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+typename slot_8<HYDROSIG_8_ARG>::functor_type*
+slot_8<HYDROSIG_8_ARG>::get_functor() const
+{
+    return m_functor.get();
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+Return_type slot_8<HYDROSIG_8_ARG>::activate(
+        Arg1_type arg1, Arg2_type arg2, Arg3_type arg3,
+        Arg4_type arg4, Arg5_type arg5, Arg6_type arg6,
+        Arg7_type arg7, Arg8_type arg8)
+{
+    HYDROSIG_PROTECTED_BLOCK_BEGIN
+
+    try {
+        return (*m_functor)(arg1, arg2, arg3,
+                            arg4, arg5, arg6,
+                            arg7, arg8);
+    }
+    catch(...)
+    {
+        throw;
+    }
+
+    // HYDROSIG_PROTECTED_BLOCK_END
+}
 
 
 HYDROSIG_NAMESPACE_END

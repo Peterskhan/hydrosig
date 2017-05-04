@@ -29,266 +29,99 @@
 
 #include "macros.h"
 
-/*****************************************/
-#ifdef HYDROSIG_USE_HYDROGEN_CONTAINERS
-#include "../HContainers/HList/HList.h"
-
+#ifdef HYDROSIG_HYDROGEN_AVAILABLE
+# include ../HContainers/HList/HList.hpp
+# include ../HCore/HMemory/HMemory.h
+# include ../HConcurrent/HConcurrent.h
 #else
-#include <list>
-
-#endif // HYDROSIG_USE_HYDROGEN_CONTAINERS
-/*****************************************/
-
-/*****************************************/
-#ifdef HYDROSIG_USE_THREAD_SYNCHRONISATION
-#ifdef HYDROSIG_USE_HYDROGEN_SYNCHRONISATION
-
-#include "HConcurrent/HMutex/HMutex.h"
-#include "HConcurrent/HMutexLocker/HMutexLocker.h"
-
-#else
-#include <mutex>
-
-#endif // HYDROSIG_USE_HYDROGEN_SYNCHRONISATION
-#endif // HYDROSIG_USE_THREAD_SYNCHRONISATION
-/*****************************************/
+# include <list>
+# include <memory>
+# include <mutex>
+#endif
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
- * @brief   Common baseclass for notifyable objects.
- * @details This class provides an overridable virtual
- *          method, which can be used to implement the
- *          desired behaviour when notificated about the
- *          destruction of an object. Trackable objects
- *          can use this override as their callback method.
- *          To make use of this, simply add a callback with
- *          add_destroy_notify_callback() using a pointer
- *          to the object which needs to be notificated,
- *          and a function pointer to the virtual method
- *          on_destruction_notification(). This method
- *          expects a pointer to the object which is being
- *          destroyed.
+ * @brief   This class can be used to validate a
+ *          signal-slot connection.
  */
-class notifyable
+class connection_validator
 {
-protected:
-    /**
-     * @brief   Virtual method to be used as callback when
-     *          a destruction notification is received.
-     * @details Override this method to implement the
-     *          desired behaviour when notificated about
-     *          an object's destruction.
-     */
-    virtual void on_destruction_notification(notifyable* /*destroyed*/);
-
 public:
     /**
-     * @brief   Destroys the notifyable object.
+     * @brief   Constructs a connection_validator object
+     *          in a valid state by default.
      */
-    virtual ~notifyable();
+    connection_validator();
+
+    /**
+     * @brief   Invalidates the connection_validator.
+     */
+    void invalidate();
+
+    /**
+     * @brief   Returns whether the connection_validator is
+     *          valid.
+     * @return  True if the connection_validator is valid,
+     *          false otherwise.
+     */
+    bool isValid() const;
+
+private:
+    /**< The state of validation */
+    bool m_isValid;
 
 };
 
 /**
- * @brief   This structure encapsulates a destroy notify callback.
- * @details Destroy_notify_callbacks contain a pointer to the actual
- *          callback method, and a pointer to the target object that
- *          the callback is executed by.
+ * @brief   This base class can be used to track the participants
+ *          of a signal-slot connection.
+ * @details Trackable objects either have right to invalidate their
+ *          connection validator, or they do not. Trackable objects
+ *          that can invalidate their validators, will do so upon
+ *          destruction. The status of validation can be checked at
+ *          any time. Trackable objects reference their validator
+ *          trough a shared_ptr, and it will be deleted automatically
+ *          when the last trackable loses track of it.
  */
-class destroy_notify_callback
+class trackable
 {
 public:
-    /**< Typedef for the callback function type */
-    typedef void (notifyable::*callback_type)(notifyable*);
-
-private:
-    notifyable*     m_target;       /**< The target of the destrunction notification callback */
-    callback_type   m_callback;     /**< The pointer to the callback executed on the target */
-
-public:
-    /**
-     * @brief Constructs a destroy_notify_callback.
-     * @param target The target of the destruction notification callback.
-     * @param callback The pointer to the callback executed on the target.
-     */
-    destroy_notify_callback(notifyable* target,
-                            callback_type callback);
-
-    /**
-     * @brief   Returns the target of the callback.
-     * @return  Pointer to the target object.
-     */
-    notifyable* get_target() const;
-
-    /**
-     * @brief   Returns the callback function.
-     * @return  Pointer to the callback function.
-     */
-    callback_type get_callback() const;
-
-    /**
-     * @brief   Activates the stored callback.
-     * @param   destroyed Pointer to the object that sends the notification.
-     */
-    void operator()(notifyable* destroyed);
-
-};
-
-/**
- * @brief   This class encapsulates a list of destroy notify callbacks.
- * @details Destroy_notify_callback_lists are wrappers around a list of
- *          destroy_notify_callbacks. To add a destroy_notify_callback,
- *          use add_destroy_notify_callback(), to remove a previously
- *          installed one, use remove_destroy_notify_callback().
- *          To execute and remove all installed callbacks, use clear().
- */
-class destroy_notify_callback_list
-{
-public:
-    /**< Typedef for the callback function type */
-    typedef destroy_notify_callback::callback_type callback_type;
-
-    /**< Typedef for the list of callbacks */
-    #ifdef HYDROSIG_USE_HYDROGEN_CONTAINERS
-    typedef HList<destroy_notify_callback> callback_list;
-    #else
-    typedef std::list<destroy_notify_callback> callback_list;
-    #endif // HYDROSIG_USE_HYDROGEN_CONTAINERS
-
-    /**< Typedef for the callback list iterator */
-    #ifdef HYDROSIG_USE_HYDROGEN_CONTAINERS
-    typedef HList<destroy_notify_callback>::iterator iterator;
-    #else
-    typedef std::list<destroy_notify_callback>::iterator iterator;
-    #endif // HYDROSIG_USE_HYDROGEN_CONTAINERS
-
-private:
-    callback_list m_callbacks;      /**< The list of callbacks */
-
-public:
-    /**
-     * @brief Adds a destruction notification callback to the list.
-     * @param target The target of the callback.
-     * @param func The pointer to the callback function executed by the target.
-     */
-    void add_destroy_notify_callback(notifyable* target,
-                                     callback_type func);
-
-    /**
-     * @brief Removes a destruction notification callback from the list.
-     * @param target The target to remove destroy_notify_callbacks associated with.
-     */
-    void remove_destroy_notify_callback(notifyable* target);
-
-    /**
-     * @brief   Executes and removes all destroy_notify_callbacks
-     *          from the list.
-     */
-    void clear(notifyable* observer);
-
-};
-
-/**
- * @brief   Common base class for automatic signal-disconnecting classes.
- * @details This class forms the base of classes that automatically
- *          disconnect from all signal-slot connections upon destruction.
- *          If you want your class to provide this automatic behaviour,
- *          derive it from the trackable class. Trackable objects ontain a list of
- *          destroy_notify_callbacks. Upon destruction, all of the installed
- *          callbacks will be executed, making possible for the object to
- *          automatically disconnect all signal-slot connections using these
- *          callbacks. To add a destrouction notification callback use
- *          add_destroy_notify_callback(), to remove a previously installed one,
- *          use remove_destroy_notify_callback(). To execute all installed
- *          destroy_notify_callbacks, use notify_callbacks().
- */
-class trackable : public notifyable
-{
-public:
-    /**< Typedef for the callback function type */
-    typedef destroy_notify_callback::callback_type callback_type;
-
-private:
-    destroy_notify_callback_list m_callbacks;   /**< The list of installed callbacks */
-
-protected:
-    /**< The mutex used for thread synchronisation */
-    #ifdef HYDROSIG_USE_THREAD_SYNCHRONISATION
-    #ifdef HYDROSIG_USE_HYDROGEN_SYNCHRONISATION
-    HMutex m_mutex;
-
-    #else
-    std::recursive_mutex m_mutex;
-
-    #endif // HYDROSIG_USE_HYDROGEN_SYNCHRONISATION
-    #endif // HYDROSIG_USE_THREAD_SYNCHRONISATION
-
-public:
-    /**
-     * @brief Constructs a trackable object.
-     */
-    trackable();
-
-    /**
-     * @brief Constructs a trackable object, by copying src.
-     * @param src The object to copy construct from.
-     */
-    trackable(const trackable& /*src*/);
-
-    /**
-     * @brief Constructs a trackable object, by moving src.
-     * @param src The object to move construct from.
-     */
-    trackable(trackable &&src);
-
-    /**
-     * @brief Assigns the value of another trackable object.
-     * @param src The object to assign.
-     */
-    trackable& operator=(const trackable& src);
-
-    /**
-     * @brief Move assigns the value of another trackable object.
-     * @param src The object to move assign.
-     */
-    trackable& operator=(trackable&& src);
-
     /**
      * @brief   Destroys the trackable object.
-     * @details Upon destruction the trackable object,
-     *          executes all installed callbacks.
+     * @details The object will invalidate all
+     *          of it's validators.
      */
     virtual ~trackable();
 
     /**
-     * @brief Adds a destrouction notification callback.
-     * @param target The target of the callback.
-     * @param func The callback function to execute by the target.
+     * @brief   Adds a connection validator to the list of
+     *          validators.
+     * @param   validator Pointer to the validator object.
      */
-    void add_destroy_notify_callback(notifyable* target,
-                                     callback_type func);
+    void addValidator(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator);
 
     /**
-     * @brief Removes a previously installed destruction notification callback.
-     * @param target The target of the previously installed callback.
+     * @brief   Removes a connection validator from the list
+     *          of validators.
+     * @param   validator Pointer to the validator object.
      */
-    void remove_destroy_notify_callback(notifyable* target);
+    void removeValidator(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator);
 
     /**
-     * @brief   When notificated, removes all callbacks
-     *          associated with the destroyed object.
-     * @param   destroyed The destroyed object.
+     * @brief   Removes all invalidated connection validators
+     *          from the lsit of validators.
      */
-    virtual void on_destruction_notification(notifyable* destroyed);
+    void removeInvalidated();
 
-protected:
-    /**
-     * @brief Executes and removes all previously installed callbacks.
-     */
-    void notify_callbacks();
+private:
+    /**< Pointer to the list of validators */
+    HYDROSIG_LIST_TYPE<HYDROSIG_SHARED_PTR_TYPE<connection_validator>> m_validators;
+
+    /**< Mutex used for synchronisation */
+    HYDROSIG_MUTEX_TYPE m_mutex;
 
 };
 

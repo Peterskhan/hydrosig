@@ -30,15 +30,15 @@
 #include "macros.h"
 #include "wrappers/wrapper_helpers.h"
 
-#include "slots/slot_0.hpp"
-#include "slots/slot_1.hpp"
-#include "slots/slot_2.hpp"
-#include "slots/slot_3.hpp"
-#include "slots/slot_4.hpp"
-#include "slots/slot_5.hpp"
-#include "slots/slot_6.hpp"
-#include "slots/slot_7.hpp"
-#include "slots/slot_8.hpp"
+#include "signals/signal_0.hpp"
+#include "signals/signal_1.hpp"
+#include "signals/signal_2.hpp"
+#include "signals/signal_3.hpp"
+#include "signals/signal_4.hpp"
+#include "signals/signal_5.hpp"
+#include "signals/signal_6.hpp"
+#include "signals/signal_7.hpp"
+#include "signals/signal_8.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN
@@ -49,159 +49,102 @@ HYDROSIG_NAMESPACE_BEGIN
  * --------------------------------------------------
  */
 
-template<class Return_type,
-         class Arg1_type = no_arg, class Arg2_type = no_arg, class Arg3_type = no_arg,
-         class Arg4_type = no_arg, class Arg5_type = no_arg, class Arg6_type = no_arg,
-         class Arg7_type = no_arg, class Arg8_type = no_arg>
+HYDROSIG_TEMPLATE_PORTABLE_WRAPPER_BASE
 /**
  * @brief   Convenience wrapper for signals with eight arguments.
  * @details Signals with less arguments are specialized types of
  *          this template.
  */
 class signal
-        : public signal_8<Return_type,
-                          Arg1_type, Arg2_type, Arg3_type,
-                          Arg4_type, Arg5_type, Arg6_type,
-                          Arg7_type, Arg8_type>
+        : public signal_8<HYDROSIG_8_ARG>
 {
 
 };
 
-template<class Return_type>
+HYDROSIG_TEMPLATE_0_ARG
 /**
  * @brief   Convenience wrapper for signals with no arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             no_arg, no_arg, no_arg,
-             no_arg, no_arg, no_arg,
-             no_arg, no_arg>
-      : public signal_0<Return_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_0_ARG>
+      : public signal_0<HYDROSIG_0_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type>
+HYDROSIG_TEMPLATE_1_ARG
 /**
  * @brief   Convenience wrapper for signals with one arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type,
-             no_arg, no_arg, no_arg,
-             no_arg, no_arg, no_arg,
-             no_arg>
-      : public signal_1<Return_type,
-                        Arg1_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_1_ARG>
+      : public signal_1<HYDROSIG_1_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type>
+HYDROSIG_TEMPLATE_2_ARG
 /**
  * @brief   Convenience wrapper for signals with two arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type,
-             no_arg, no_arg, no_arg,
-             no_arg, no_arg, no_arg>
-      : public signal_2<Return_type,
-                        Arg1_type, Arg2_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_2_ARG>
+      : public signal_2<HYDROSIG_2_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
 /**
  * @brief   Convenience wrapper for signals with three arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type, Arg3_type,
-             no_arg, no_arg, no_arg,
-             no_arg, no_arg>
-      : public signal_3<Return_type,
-                        Arg1_type, Arg2_type, Arg3_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_3_ARG>
+      : public signal_3<HYDROSIG_3_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type>
+HYDROSIG_TEMPLATE_4_ARG
 /**
  * @brief   Convenience wrapper for signals with four arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type, Arg3_type,
-             Arg4_type,
-             no_arg, no_arg, no_arg,
-             no_arg>
-      : public signal_4<Return_type,
-                        Arg1_type, Arg2_type, Arg3_type,
-                        Arg4_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_4_ARG>
+      : public signal_4<HYDROSIG_4_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+HYDROSIG_TEMPLATE_5_ARG
 /**
  * @brief   Convenience wrapper for signals with five arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type, Arg3_type,
-             Arg4_type, Arg5_type,
-             no_arg, no_arg, no_arg>
-      : public signal_5<Return_type,
-                        Arg1_type, Arg2_type, Arg3_type,
-                        Arg4_type, Arg5_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_5_ARG>
+      : public signal_5<HYDROSIG_5_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type>
+HYDROSIG_TEMPLATE_6_ARG
 /**
  * @brief   Convenience wrapper for signals with six arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type, Arg3_type,
-             Arg4_type, Arg5_type, Arg6_type,
-             no_arg, no_arg>
-      : public signal_6<Return_type,
-                        Arg1_type, Arg2_type, Arg3_type,
-                        Arg4_type, Arg5_type, Arg6_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_6_ARG>
+      : public signal_6<HYDROSIG_6_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type>
+HYDROSIG_TEMPLATE_7_ARG
 /**
  * @brief   Convenience wrapper for signals with seven arguments.
  * @details Specialized from the template wrapper for eight arguments.
  */
-class signal<Return_type,
-             Arg1_type, Arg2_type, Arg3_type,
-             Arg4_type, Arg5_type, Arg6_type,
-             Arg7_type,
-             no_arg>
-      : public signal_7<Return_type,
-                        Arg1_type, Arg2_type, Arg3_type,
-                        Arg4_type, Arg5_type, Arg6_type,
-                        Arg7_type>
+class signal<HYDROSIG_PORTABLE_WRAPPER_7_ARG>
+      : public signal_7<HYDROSIG_7_ARG>
 {
 
 };
@@ -212,138 +155,101 @@ class signal<Return_type,
  * -------------------------------------------------
  */
 
-template<class Return_type>
+HYDROSIG_TEMPLATE_0_ARG
 /**
  * @brief   Convenience wrapper for signals with no arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type()>
-    : public signal_0<Return_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_0_ARG>
+    : public signal_0<HYDROSIG_0_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type>
+HYDROSIG_TEMPLATE_1_ARG
 /**
  * @brief   Convenience wrapper for signals with one arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type)>
-    : public signal_1<Return_type,
-                      Arg1_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_1_ARG>
+    : public signal_1<HYDROSIG_1_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type>
+HYDROSIG_TEMPLATE_2_ARG
 /**
  * @brief   Convenience wrapper for signals with two arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type)>
-    : public signal_2<Return_type,
-                      Arg1_type,Arg2_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_2_ARG>
+    : public signal_2<HYDROSIG_2_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
 /**
  * @brief   Convenience wrapper for signals with three arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type)>
-    : public signal_3<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_3_ARG>
+    : public signal_3<HYDROSIG_3_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type>
+HYDROSIG_TEMPLATE_4_ARG
 /**
  * @brief   Convenience wrapper for signals with four arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                         Arg4_type)>
-    : public signal_4<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type,
-                      Arg4_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_4_ARG>
+    : public signal_4<HYDROSIG_4_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+HYDROSIG_TEMPLATE_5_ARG
 /**
  * @brief   Convenience wrapper for signals with five arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                         Arg4_type,Arg5_type)>
-    : public signal_5<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type,
-                      Arg4_type,Arg5_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_5_ARG>
+    : public signal_5<HYDROSIG_5_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type>
+HYDROSIG_TEMPLATE_6_ARG
 /**
  * @brief   Convenience wrapper for signals with six arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                         Arg4_type,Arg5_type,Arg6_type)>
-    : public signal_6<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type,
-                      Arg4_type,Arg5_type,Arg6_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_6_ARG>
+    : public signal_6<HYDROSIG_6_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type>
+HYDROSIG_TEMPLATE_7_ARG
 /**
  * @brief   Convenience wrapper for signals with seven arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                         Arg4_type,Arg5_type,Arg6_type,
-                         Arg7_type)>
-    : public signal_7<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type,
-                      Arg4_type,Arg5_type,Arg6_type,
-                      Arg7_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_7_ARG>
+    : public signal_7<HYDROSIG_7_ARG>
 {
 
 };
 
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
+HYDROSIG_TEMPLATE_8_ARG
 /**
  * @brief   Convenience wrapper for signals with eight arguments.
  * @details This template version uses the elegant syntax.
  */
-class signal<Return_type(Arg1_type,Arg2_type,Arg3_type,
-                         Arg4_type,Arg5_type,Arg6_type,
-                         Arg7_type,Arg8_type)>
-    : public signal_8<Return_type,
-                      Arg1_type,Arg2_type,Arg3_type,
-                      Arg4_type,Arg5_type,Arg6_type,
-                      Arg7_type,Arg8_type>
+class signal<HYDROSIG_ELEGANT_WRAPPER_8_ARG>
+    : public signal_8<HYDROSIG_8_ARG>
 {
 
 };

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef HYDROSIG_HYDROSIG_H_INCLUDED
-#define HYDROSIG_HYDROSIG_H_INCLUDED
+#ifndef HYDROSIG_COMP_FUNS_H_INCLUDED
+#define HYDROSIG_COMP_FUNS_H_INCLUDED
 
 /*
  * MIT License
@@ -27,15 +27,14 @@
  *
  */
 
-#include "config.h"
-#include "macros.h"
-#include "connections/connections.h"
-#include "functors/functors.h"
-#include "comp_funs/comp_funs.h"
-#include "make_funs/make_funs.h"
-#include "signals/signals.h"
-#include "slots/slots.h"
-#include "trackable/trackable.h"
+#include "comp_fun_0.h"
+#include "comp_fun_1.h"
+#include "comp_fun_2.h"
+#include "comp_fun_3.h"
+#include "comp_fun_4.h"
+#include "comp_fun_5.h"
+#include "comp_fun_6.h"
+#include "comp_fun_7.h"
+#include "comp_fun_8.h"
 
-
-#endif // HYDROSIG_HYDROSIG_H_INCLUDED
+#endif // HYDROSIG_COMP_FUNS_H_INCLUDED

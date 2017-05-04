@@ -27,74 +27,57 @@
  *
  */
 
-#include "functor_base/functor_base.hpp"
 #include "macros.h"
+#include "functor_base/functor_base.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
+ * Class declarations:
+ * -------------------
+ */
+
+/**
  * @brief   This class encapsulates a free function, such
  *          as a global or static member method with three
  *          arguments.
  */
-template<class Return_type,
-        class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_free_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
+class functor_to_free_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
+public:
     /**< Typedef for the function type */
     typedef Return_type(*function_type)(Arg1_type, Arg2_type, Arg3_type);
 
-private:
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
-public:
     /**
      * @brief   Constructs a functor_to_free_3 from the
      *          given function pointer.
      */
-    functor_to_free_3(function_type function)
-        : m_function(function)
-    {}
+    functor_to_free_3(function_type function);
 
     /**
      * @brief   Calls the encapsulated function.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return m_function(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details three functors compare equal, if they refer to the
      *          same free function.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_free_3 &other)
-    {
-        if(m_function == other.m_function)
-            return true;
-        return false;
-    }
+    bool operator==(const functor_to_free_3 &other);
+
+private:
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -102,42 +85,28 @@ public:
  * @brief   This class encapsulates a callable object, such
  *          as a lambda-expression, expecting three arguments.
  */
-template<class Callable_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_callable_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_CALLABLE_3_ARG
+class functor_to_callable_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
-    Callable_type m_callable;   /**< The callable object */
-
 public:
     /**
      * @brief   Constructs a functor_to_callable_3 from the
      *          copy of the given callable object.
      */
-    functor_to_callable_3(Callable_type callable)
-        : m_callable(callable)
-    {}
+    functor_to_callable_3(Callable_type callable);
 
     /**
      * @brief   Calls the encapsulated function.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        try {
-            return m_callable(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
+
+private:
+    /**< The callable object */
+    Callable_type m_callable;
 
 };
 
@@ -145,71 +114,45 @@ public:
  * @brief   This class encapsulates a bound member function
  *          with three arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_member_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+class functor_to_member_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type);
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type);
+
     /**
      * @brief   Constructs a functor_to_member_3 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_3(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_3(Object_type* object,
+                        function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details three functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_3 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_3 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -217,71 +160,45 @@ public:
  * @brief   This class encapsulates a const bound member function
  *          with three arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_member_const_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+class functor_to_member_const_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type) const;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type) const;
+
     /**
      * @brief   Constructs a functor_to_member_const_3 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_const_3(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_const_3(Object_type* object,
+                              function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details three functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_const_3 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_const_3 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -289,71 +206,45 @@ public:
  * @brief   This class encapsulates a volatile bound member function
  *          with three arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_member_volatile_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+class functor_to_member_volatile_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type) volatile;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type) volatile;
+
     /**
      * @brief   Constructs a functor_to_member_volatile_3 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_volatile_3(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_volatile_3(Object_type* object,
+                                 function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details three functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_volatile_3 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_volatile_3 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
 
@@ -361,73 +252,250 @@ public:
  * @brief   This class encapsulates a const volatile bound member function
  *          with three arguments.
  */
-template<class Object_type,
-         class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
-class functor_to_member_const_volatile_3
-        : public functor_3_base<Return_type,
-                                Arg1_type, Arg2_type, Arg3_type>
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+class functor_to_member_const_volatile_3 : public functor_3_base<HYDROSIG_3_ARG>
 {
-private:
-    /**< Typedef for the function type */
-    typedef Return_type(Object_type::*function_type)(Arg1_type, Arg2_type, Arg3_type) const volatile;
-
-private:
-    Object_type*  m_object;     /**< Pointer to the target object */
-    function_type m_function;   /**< Pointer to the encapsulated function */
-
 public:
+    /**< Typedef for the function type */
+    typedef Return_type(Object_type::*function_type)
+            (Arg1_type, Arg2_type, Arg3_type) const volatile;
+
     /**
      * @brief   Constructs a functor_to_member_const_volatile_3 from pointer to
      *          the given object and a member function pointer.
      */
-    functor_to_member_const_volatile_3(Object_type* object, function_type function)
-        : m_object(object),
-          m_function(function)
-    {}
+    functor_to_member_const_volatile_3(Object_type* object,
+                                       function_type function);
 
     /**
      * @brief   Calls the encapsulated function on the object.
+     * @return  The result of the function call.
      * @param   arg1 The first argument.
      * @param   arg2 The second argument.
      * @param   arg3 The third argument.
-     * @return  The result of the function call.
      */
-    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
-    {
-        if(m_object == nullptr)
-            throw bad_function_call();
-
-        if(m_function == nullptr)
-            throw bad_function_call();
-
-        try {
-            return (m_object->*m_function)(arg1,arg2,arg3);
-        }
-        catch(...)
-        {
-            throw;
-        }
-    }
+    Return_type operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3);
 
     /**
      * @brief   Compares this functor with another for equality.
-     * @details Two functors compare equal, if they refer to the
+     * @details three functors compare equal, if they refer to the
      *          same member function of the same object.
      * @param   other The other functor.
      * @return  True if the functors compare equal.
      */
-    bool operator==(const functor_to_member_const_volatile_3 &other)
-    {
-        if(m_object == other.m_object
-                &&
-           m_function == other.m_function)
-        return true;
+    bool operator==(const functor_to_member_const_volatile_3 &other);
 
-        return false;
-    }
+private:
+    /**< Pointer to the target object */
+    Object_type*  m_object;
+
+    /**< Pointer to the encapsulated function */
+    function_type m_function;
 
 };
+
+
+
+
+/**
+ * Member definitions:
+ * -------------------
+ */
+
+HYDROSIG_TEMPLATE_3_ARG
+functor_to_free_3<HYDROSIG_3_ARG>::functor_to_free_3(
+        function_type function)
+        : m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_3_ARG
+Return_type functor_to_free_3<HYDROSIG_3_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return m_function(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_3_ARG
+bool functor_to_free_3<HYDROSIG_3_ARG>::operator==(
+        const functor_to_free_3 &other)
+{
+    if(m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_CALLABLE_3_ARG
+functor_to_callable_3<HYDROSIG_CALLABLE_3_ARG>::functor_to_callable_3(
+        Callable_type callable)
+    : m_callable(callable)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_CALLABLE_3_ARG
+Return_type functor_to_callable_3<HYDROSIG_CALLABLE_3_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return m_callable(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+functor_to_member_3<HYDROSIG_OBJECT_3_ARG>::functor_to_member_3(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+Return_type functor_to_member_3<HYDROSIG_OBJECT_3_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+bool functor_to_member_3<HYDROSIG_OBJECT_3_ARG>::operator==(
+        const functor_to_member_3 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+functor_to_member_const_3<HYDROSIG_OBJECT_3_ARG>::functor_to_member_const_3(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+Return_type functor_to_member_const_3<HYDROSIG_OBJECT_3_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+bool functor_to_member_const_3<HYDROSIG_OBJECT_3_ARG>::operator==(
+        const functor_to_member_const_3 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+functor_to_member_volatile_3<HYDROSIG_OBJECT_3_ARG>::functor_to_member_volatile_3(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+Return_type functor_to_member_volatile_3<HYDROSIG_OBJECT_3_ARG>::operator()
+    (Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+bool functor_to_member_volatile_3<HYDROSIG_OBJECT_3_ARG>::operator==(
+        const functor_to_member_volatile_3 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
+
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+functor_to_member_const_volatile_3<HYDROSIG_OBJECT_3_ARG>::
+functor_to_member_const_volatile_3(
+        Object_type* object,
+        function_type function)
+    : m_object(object),
+      m_function(function)
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+Return_type functor_to_member_const_volatile_3<HYDROSIG_OBJECT_3_ARG>
+::operator()(Arg1_type arg1, Arg2_type arg2, Arg3_type arg3)
+{
+    try {
+        return (m_object->*m_function)(arg1, arg2, arg3);
+    }
+    catch(...)
+    {
+        throw;
+    }
+}
+
+HYDROSIG_TEMPLATE_OBJECT_3_ARG
+bool functor_to_member_const_volatile_3<HYDROSIG_OBJECT_3_ARG>
+::operator==(
+        const functor_to_member_const_volatile_3 &other)
+{
+    if(m_object == other.m_object
+            &&
+       m_function == other.m_function)
+        return true;
+
+    return false;
+}
 
 
 HYDROSIG_NAMESPACE_END

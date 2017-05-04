@@ -28,6 +28,7 @@
  */
 
 #include <exception>
+
 #include "macros.h"
 
 
@@ -35,8 +36,8 @@ HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
- * Abstract functor base classes
- * -----------------------------
+ * Class declarations:
+ * -------------------
  */
 
 /**
@@ -44,7 +45,7 @@ HYDROSIG_NAMESPACE_BEGIN
  *          holding callable objects or functions with zero
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type>
+HYDROSIG_TEMPLATE_0_ARG
 class functor_0_base
 {
 public:
@@ -58,12 +59,9 @@ public:
     virtual Return_type operator()() = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_0_base object.
      */
-    virtual ~functor_0_base()
-    {
-        ;
-    }
+    virtual ~functor_0_base();
 
 };
 
@@ -72,8 +70,7 @@ public:
  *          holding callable objects or functions with one
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type>
+HYDROSIG_TEMPLATE_1_ARG
 class functor_1_base
 {
 public:
@@ -88,12 +85,9 @@ public:
     virtual Return_type operator()(Arg1_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_1_base object.
      */
-    virtual ~functor_1_base()
-    {
-        ;
-    }
+    virtual ~functor_1_base();
 
 };
 
@@ -102,8 +96,7 @@ public:
  *          holding callable objects or functions with two
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type>
+HYDROSIG_TEMPLATE_2_ARG
 class functor_2_base
 {
 public:
@@ -119,12 +112,9 @@ public:
     virtual Return_type operator()(Arg1_type, Arg2_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_2_base object.
      */
-    virtual ~functor_2_base()
-    {
-        ;
-    }
+    virtual ~functor_2_base();
 
 };
 
@@ -133,8 +123,7 @@ public:
  *          holding callable objects or functions with three
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type>
+HYDROSIG_TEMPLATE_3_ARG
 class functor_3_base
 {
 public:
@@ -151,12 +140,9 @@ public:
     virtual Return_type operator()(Arg1_type, Arg2_type, Arg3_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_3_base object.
      */
-    virtual ~functor_3_base()
-    {
-        ;
-    }
+    virtual ~functor_3_base();
 
 };
 
@@ -165,9 +151,7 @@ public:
  *          holding callable objects or functions with four
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type>
+HYDROSIG_TEMPLATE_4_ARG
 class functor_4_base
 {
 public:
@@ -186,12 +170,9 @@ public:
                                    Arg4_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_4_base object.
      */
-    virtual ~functor_4_base()
-    {
-        ;
-    }
+    virtual ~functor_4_base();
 
 };
 
@@ -200,9 +181,7 @@ public:
  *          holding callable objects or functions with five
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type>
+HYDROSIG_TEMPLATE_5_ARG
 class functor_5_base
 {
 public:
@@ -222,12 +201,9 @@ public:
                                    Arg4_type, Arg5_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_5_base object.
      */
-    virtual ~functor_5_base()
-    {
-        ;
-    }
+    virtual ~functor_5_base();
 
 };
 
@@ -236,9 +212,7 @@ public:
  *          holding callable objects or functions with six
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type>
+HYDROSIG_TEMPLATE_6_ARG
 class functor_6_base
 {
 public:
@@ -259,12 +233,9 @@ public:
                                    Arg4_type, Arg5_type, Arg6_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_6_base object.
      */
-    virtual ~functor_6_base()
-    {
-        ;
-    }
+    virtual ~functor_6_base();
 
 };
 
@@ -273,10 +244,7 @@ public:
  *          holding callable objects or functions with sever
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type>
+HYDROSIG_TEMPLATE_7_ARG
 class functor_7_base
 {
 public:
@@ -299,12 +267,9 @@ public:
                                    Arg7_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_7_base object.
      */
-    virtual ~functor_7_base()
-    {
-        ;
-    }
+    virtual ~functor_7_base();
 
 };
 
@@ -313,10 +278,7 @@ public:
  *          holding callable objects or functions with eight
  *          arguments. Note that this class is abstract.
  */
-template<class Return_type,
-         class Arg1_type, class Arg2_type, class Arg3_type,
-         class Arg4_type, class Arg5_type, class Arg6_type,
-         class Arg7_type, class Arg8_type>
+HYDROSIG_TEMPLATE_8_ARG
 class functor_8_base
 {
 public:
@@ -340,37 +302,73 @@ public:
                                    Arg7_type, Arg8_type) = 0;
 
     /**
-     * @brief   Virtual destructor for derived functors.
+     * @brief   Destroys a functor_8_base object.
      */
-    virtual ~functor_8_base()
-    {
-        ;
-    }
+    virtual ~functor_8_base();
 
 };
 
 
-/**
- * Bad function call exception
- * ---------------------------
- */
+
 
 /**
- * @brief   This class represents a bad function call exception
- *          which is thrown if an invalid functor is activated.
+ * Member definitions:
+ * -------------------
  */
-class bad_function_call : public std::exception
+
+HYDROSIG_TEMPLATE_0_ARG
+functor_0_base<HYDROSIG_0_ARG>::~functor_0_base()
 {
-public:
-    /**
-     * @brief   Returns an explanatory string about the exception.
-     * @return  The explanatory string.
-     */
-    virtual const char* what() const noexcept
-    {
-        return "Hydrosig++: Bad call to invalid functor.";
-    }
-};
+    ;
+}
+
+HYDROSIG_TEMPLATE_1_ARG
+functor_1_base<HYDROSIG_1_ARG>::~functor_1_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_2_ARG
+functor_2_base<HYDROSIG_2_ARG>::~functor_2_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_3_ARG
+functor_3_base<HYDROSIG_3_ARG>::~functor_3_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_4_ARG
+functor_4_base<HYDROSIG_4_ARG>::~functor_4_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_5_ARG
+functor_5_base<HYDROSIG_5_ARG>::~functor_5_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_6_ARG
+functor_6_base<HYDROSIG_6_ARG>::~functor_6_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_7_ARG
+functor_7_base<HYDROSIG_7_ARG>::~functor_7_base()
+{
+    ;
+}
+
+HYDROSIG_TEMPLATE_8_ARG
+functor_8_base<HYDROSIG_8_ARG>::~functor_8_base()
+{
+    ;
+}
 
 
 HYDROSIG_NAMESPACE_END

@@ -5,53 +5,42 @@ HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
- * Methods for class: slot_base.
- * --------------------------------------------------
+ * Member definitions:
+ * -------------------
  */
 
-/**
- * @brief   Constructs a slot_base object.
- * @details The state of blocking will be
- *          initialized to false.
- */
-slot_base::slot_base()
-    : m_blocked(false)
+slot_base::slot_base(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator)
+    : m_blocked(false),
+      m_validator(validator)
 {
     ;
 }
 
-/**
- * @brief   Destroys the slot_base.
- */
 slot_base::~slot_base()
 {
-    ;
+    m_validator->invalidate();
 }
 
-/**
- * @brief   Sets the blocking state of the slot.
- * @details If the connection is blocked by the slot,
- *          no callbacks will be executed when the holding
- *          signal is emitted.
- * @param   shouldBlock The state of blocking to set.
- */
+HYDROSIG_SHARED_PTR_TYPE<connection_validator> slot_base::getValidator() const
+{
+    return m_validator;
+}
+
+bool slot_base::isValid() const
+{
+    return m_validator->isValid();
+}
+
 void slot_base::block(bool shouldBlock)
 {
     m_blocked = shouldBlock;
 }
 
-/**
- * @brief   Unblocks the slot.
- */
 void slot_base::unblock()
 {
     m_blocked = false;
 }
 
-/**
- * @brief   Returns whether the slot is blocked.
- * @return  True if the slot is blocked.
- */
 bool slot_base::isBlocked() const
 {
     return m_blocked;

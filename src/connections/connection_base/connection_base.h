@@ -27,36 +27,49 @@
  *
  */
 
-#include <exception>
 #include "macros.h"
+#include "trackable/trackable.h"
+#include <exception>
 
 
 HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
+ * Class declarations:
+ * -------------------
+ */
+
+/**
  * @brief   This abstract base class defines the common,
  *          type-independent interface of all connection
  *          classes.
  * @details Connection classes provide a handle to the
- *          underlying slot they represent. As most of
- *          the operations a connection can provide as
- *          an interface to the represented slot are
- *          type dependent, this base class only provides
- *          pure virtual methods for accessing the common,
- *          semantically type-independent interaface. The
- *          rest of the accessor methods are available in
- *          the derived connection classes.
+ *          underlying slot they represent. This base class
+ *          provides virtual methods for accessing the
+ *          blocking mechanism and validation of the
+ *          represented slot object.
  */
 class connection_base
 {
 public:
+    /**
+     * @brief   Constructs a connection_base with the provided
+     *          connection_validator.
+     * @param   validator The connection_validator to use.
+     */
+    connection_base(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator);
 
     /**
-     * @brief   Returns whether the represented slot is empty.
-     * @return  True if the slot is empty.
+     * @brief   Returns whether the represented slot is connected.
+     * @return  True if the slot is connected.
      */
-    virtual bool empty() const = 0;
+    bool isConnected() const;
+
+    /**
+     * @brief   Disconnects the represented slot from the signal.
+     */
+    virtual void disconnect() const = 0;
 
     /**
      * @brief   Sets the blocking state of the represented slot.
@@ -70,11 +83,14 @@ public:
     virtual void unblock() = 0;
 
     /**
-     * @brief   Returns whether the represented
-     *          slot is blocked.
-     * @return  True if the slot is blocked.
+     * @brief   Returns whether the represented slot is blocked.
+     * @return  True if the slot is blocked, false otherwise.
      */
     virtual bool isBlocked() const = 0;
+
+protected:
+    /**< The connection validator of the represented slot */
+    HYDROSIG_SHARED_PTR_TYPE<connection_validator> m_validator;
 
 };
 
@@ -91,11 +107,23 @@ public:
      * @brief   Returns an explanatory string about the exception.
      * @return  The explanatory string.
      */
-    virtual const char* what() const noexcept
-    {
-        return "Hydrosig++: Signal connection failed, due to memory allocation failure.";
-    }
+    virtual const char* what() const noexcept;
+
 };
+
+
+
+
+/**
+ * Function declarations:
+ * ----------------------
+ */
+
+
+/**
+ * Function definitions:
+ * ---------------------
+ */
 
 
 HYDROSIG_NAMESPACE_END
