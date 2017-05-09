@@ -44,6 +44,11 @@ HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
+ * Class declarations:
+ * -------------------
+ */
+
+/**
  * @brief   This abstract base class defines the common,
  *          type-independent interface of all signal classes.
  * @details Signal classes keep track of established signal-slot
@@ -116,6 +121,40 @@ protected:
     mutable HYDROSIG_MUTEX_TYPE m_mutex;
 
 };
+
+
+
+
+/**
+ * Member definitions:
+ * -------------------
+ */
+
+inline signal_base::signal_base()
+    : m_blocked(false)
+{
+    ;
+}
+
+inline signal_base::~signal_base()
+{
+    ;
+}
+
+inline bool signal_base::isBlocked() const
+{
+    return m_blocked;
+}
+
+inline void signal_base::block(bool shouldBlock)
+{
+    m_blocked = shouldBlock;
+}
+
+inline void signal_base::unblock()
+{
+    m_blocked = false;
+}
 
 
 HYDROSIG_NAMESPACE_END

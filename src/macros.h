@@ -58,59 +58,6 @@
 
 
 /**
- * Macros for configurative types used in the library:
- * ---------------------------------------------------
- */
-
-/*******************************************************
- * Defines the list-type used in the library.
- ******************************************************/
-#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
-# define HYDROSIG_LIST_TYPE          HList
-#else
-# define HYDROSIG_LIST_TYPE          std::list
-#endif
-
-/*******************************************************
- * Defines the shared_ptr type used in the library.
- ******************************************************/
-#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
-# define HYDROSIG_SHARED_PTR_TYPE    HShared_ptr
-#else
-# define HYDROSIG_SHARED_PTR_TYPE    std::shared_ptr
-#endif
-
-/*******************************************************
- * Defines the unique_ptr type used in the library.
- ******************************************************/
-#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
-# define HYDROSIG_UNIQUE_PTR_TYPE    HUnique_ptr
-#else
-# define HYDROSIG_UNIQUE_PTR_TYPE    std::unique_ptr
-#endif
-
-/*******************************************************
- * Defines the weak_ptr type used in the library.
- ******************************************************/
-#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
-# define HYDROSIG_WEAK_PTR_TYPE      HWeak_ptr
-#else
-# define HYDROSIG_WEAK_PTR_TYPE      std::weak_ptr
-#endif
-
-/*******************************************************
- * Defines the mutex type used in the library.
- ******************************************************/
-#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
-# define HYDROSIG_MUTEX_TYPE         HMutex
-#else
-# define HYDROSIG_MUTEX_TYPE         std::recursive_mutex
-#endif
-
-
-
-
-/**
  * Multithreading synchrosisation macros:
  * --------------------------------------
  */
@@ -119,13 +66,8 @@
  * Defines the beginning of a data-race protected code block.
  ***************************************************************/
 #ifdef HYDROSIG_SYNCHRONISE_THREADS
-# ifdef HYDROSIG_HYDROGEN_AVAILABLE
-#  define HYDROSIG_PROTECTED_BLOCK_BEGIN \
-          HMutexLocker guard(this->m_mutex);
-# else
-#  define HYDROSIG_PROTECTED_BLOCK_BEGIN \
-          std::unique_lock<std::recursive_mutex> guard(this->m_mutex);
-# endif
+# define HYDROSIG_PROTECTED_BLOCK_BEGIN \
+         HYDROSIG_LOCK_GUARD_TYPE guard(this->m_mutex);
 #else
 # define HYDROSIG_PROTECTED_BLOCK_BEGIN \
          ;
@@ -135,13 +77,8 @@
  * Defines the end of a data-race protected code block.
  ***************************************************************/
 #ifdef HYDROSIG_SYNCHRONISE_THREADS
-# ifdef HYDROSIG_HYDROGEN_AVAILABLE
-#  define HYDROSIG_PROTECTED_BLOCK_END \
-          guard.unlock();
-# else
-#  define HYDROSIG_PROTECTED_BLOCK_END \
-          guard.unlock();
-# endif
+# define HYDROSIG_PROTECTED_BLOCK_END \
+         guard.unlock();
 #else
 # define HYDROSIG_PROTECTED_BLOCK_END \
          ;
@@ -152,13 +89,8 @@
  * using a remote object of the same class.
  ***************************************************************/
 #ifdef HYDROSIG_SYNCHRONISE_THREADS
-# ifdef HYDROSIG_HYDROGEN_AVAILABLE
-#  define HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN \
-          HMutexLocker remoteGuard(src.m_mutex);
-# else
-#  define HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN \
-          std::unique_lock<std::recursive_mutex> remoteGuard(src.m_mutex);
-# endif
+# define HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN \
+         HYDROSIG_LOCK_GUARD_TYPE remoteGuard(src.m_mutex);
 #else
 # define HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN \
          ;
@@ -169,13 +101,8 @@
  * using a remote object of the same class.
  ***************************************************************/
 #ifdef HYDROSIG_SYNCHRONISE_THREADS
-# ifdef HYDROSIG_HYDROGEN_AVAILABLE
-#  define HYDROSIG_REMOTE_PROTECTED_BLOCK_END \
-          remoteGuard.unlock();
-# else
-#  define HYDROSIG_REMOTE_PROTECTED_BLOCK_END \
-          remoteGuard.unlock();
-# endif
+# define HYDROSIG_REMOTE_PROTECTED_BLOCK_END \
+         remoteGuard.unlock();
 #else
 # define HYDROSIG_REMOTE_PROTECTED_BLOCK_END \
          ;

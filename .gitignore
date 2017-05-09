@@ -32,5 +32,8 @@
 *.pro
 *.pro.user
 
+# Main
+main.cpp
+
 # Builds
 *build

@@ -61,4 +61,66 @@
 ///#define HYDROSIG_HYDROGEN_AVAILABLE
 
 
+
+
+/**
+ * Macros for configurative types used in the library:
+ * ---------------------------------------------------
+ */
+
+/*******************************************************
+ * Defines the list-type used in the library.
+ ******************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_LIST_TYPE          HList
+#else
+# define HYDROSIG_LIST_TYPE          std::list
+#endif
+
+/*******************************************************
+ * Defines the shared_ptr type used in the library.
+ ******************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_SHARED_PTR_TYPE    HShared_ptr
+#else
+# define HYDROSIG_SHARED_PTR_TYPE    std::shared_ptr
+#endif
+
+/*******************************************************
+ * Defines the unique_ptr type used in the library.
+ ******************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_UNIQUE_PTR_TYPE    HUnique_ptr
+#else
+# define HYDROSIG_UNIQUE_PTR_TYPE    std::unique_ptr
+#endif
+
+/*******************************************************
+ * Defines the weak_ptr type used in the library.
+ ******************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_WEAK_PTR_TYPE      HWeak_ptr
+#else
+# define HYDROSIG_WEAK_PTR_TYPE      std::weak_ptr
+#endif
+
+/*******************************************************
+ * Defines the mutex type used in the library.
+ ******************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_MUTEX_TYPE         HMutex
+#else
+# define HYDROSIG_MUTEX_TYPE         std::recursive_mutex
+#endif
+
+/****************************************************************************
+ * Defines the lock-guard type used in the library.
+ ***************************************************************************/
+#ifdef  HYDROSIG_HYDROGEN_AVAILABLE
+# define HYDROSIG_LOCK_GUARD_TYPE    HMutexLocker
+#else
+# define HYDROSIG_LOCK_GUARD_TYPE    std::unique_lock<std::recursive_mutex>
+#endif
+
+
 #endif // HYDROSIG_CONFIG_H_INCLUDED

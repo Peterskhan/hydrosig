@@ -35,6 +35,11 @@ HYDROSIG_NAMESPACE_BEGIN
 
 
 /**
+ * Class declarations:
+ * -------------------
+ */
+
+/**
  * @brief   This abstract base class defines the common,
  *          type-independent interface of all slot classes.
  * @details Slot classes operate as a logical layer over the
@@ -102,6 +107,52 @@ protected:
     HYDROSIG_MUTEX_TYPE m_mutex;
 
 };
+
+
+
+
+/**
+ * Member definitions:
+ * -------------------
+ */
+
+inline slot_base::slot_base(HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator)
+    : m_blocked(false),
+      m_validator(validator)
+{
+    ;
+}
+
+inline slot_base::~slot_base()
+{
+    m_validator->invalidate();
+}
+
+inline HYDROSIG_SHARED_PTR_TYPE<connection_validator>
+slot_base::getValidator() const
+{
+    return m_validator;
+}
+
+inline bool slot_base::isValid() const
+{
+    return m_validator->isValid();
+}
+
+inline void slot_base::block(bool shouldBlock)
+{
+    m_blocked = shouldBlock;
+}
+
+inline void slot_base::unblock()
+{
+    m_blocked = false;
+}
+
+inline bool slot_base::isBlocked() const
+{
+    return m_blocked;
+}
 
 
 HYDROSIG_NAMESPACE_END
