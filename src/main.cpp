@@ -23,7 +23,7 @@
  *
  */
 
-#include "hydrosig.h"
+#include "src/hydrosig.h"
 #include <iostream>
 
 template<class T>
@@ -57,12 +57,23 @@ int test2()
     return 2;
 }
 
+class Test : public hydrosig::trackable
+{
+public:
+    int func() { std::cout << "Test::func" << std::endl; return 0; }
+};
+
 int main()
 {
     hydrosig::signal<int()> sig;
-    sig.connect(test);
-    sig.connect(test);
-    sig.disconnect(test,true);
+
+    for(int i = 0; i < 5; i++)
+    {
+        Test t;
+        sig.connect(&t,&Test::func);
+    }
+
+
     sig.emit();
 
 

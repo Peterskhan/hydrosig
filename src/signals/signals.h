@@ -27,18 +27,18 @@
  *
  */
 
-#include "signal_base/signal_base.h"
-#include "wrappers/signal_wrapper.hpp"
+#include "src/signals/signal_base/signal_base.h"
+#include "src/wrappers/signal_wrapper.hpp"
 
-#include "signal_0.hpp"
-#include "signal_1.hpp"
-#include "signal_2.hpp"
-#include "signal_3.hpp"
-#include "signal_4.hpp"
-#include "signal_5.hpp"
-#include "signal_6.hpp"
-#include "signal_7.hpp"
-#include "signal_8.hpp"
+#include "src/signals/signal_0.hpp"
+#include "src/signals/signal_1.hpp"
+#include "src/signals/signal_2.hpp"
+#include "src/signals/signal_3.hpp"
+#include "src/signals/signal_4.hpp"
+#include "src/signals/signal_5.hpp"
+#include "src/signals/signal_6.hpp"
+#include "src/signals/signal_7.hpp"
+#include "src/signals/signal_8.hpp"
 
 
 #endif // HYDROSIG_SIGNALS_H_INCLUDED

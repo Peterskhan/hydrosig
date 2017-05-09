@@ -27,7 +27,7 @@
  *
  */
 
-#include "macros.h"
+#include "src/macros.h"
 
 #ifdef HYDROSIG_HYDROGEN_AVAILABLE
 # include ../HContainers/HList/HList.hpp
@@ -37,7 +37,7 @@
 # include <mutex>
 #endif
 
-#include "trackable/trackable.h"
+#include "src/trackable/trackable.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN

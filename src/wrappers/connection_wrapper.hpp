@@ -27,18 +27,18 @@
  *
  */
 
-#include "macros.h"
-#include "wrappers/wrapper_helpers.h"
+#include "src/macros.h"
+#include "src/wrappers/wrapper_helpers.h"
 
-#include "connections/connection_0.hpp"
-#include "connections/connection_1.hpp"
-#include "connections/connection_2.hpp"
-#include "connections/connection_3.hpp"
-#include "connections/connection_4.hpp"
-#include "connections/connection_5.hpp"
-#include "connections/connection_6.hpp"
-#include "connections/connection_7.hpp"
-#include "connections/connection_8.hpp"
+#include "src/connections/connection_0.hpp"
+#include "src/connections/connection_1.hpp"
+#include "src/connections/connection_2.hpp"
+#include "src/connections/connection_3.hpp"
+#include "src/connections/connection_4.hpp"
+#include "src/connections/connection_5.hpp"
+#include "src/connections/connection_6.hpp"
+#include "src/connections/connection_7.hpp"
+#include "src/connections/connection_8.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

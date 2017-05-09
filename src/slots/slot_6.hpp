@@ -27,9 +27,9 @@
  *
  */
 
-#include "macros.h"
-#include "slot_base/slot_base.h"
-#include "functors/functor_6.hpp"
+#include "src/macros.h"
+#include "src/slots/slot_base/slot_base.h"
+#include "src/functors/functor_6.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

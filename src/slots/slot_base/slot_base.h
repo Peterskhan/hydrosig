@@ -27,8 +27,8 @@
  *
  */
 
-#include "macros.h"
-#include "trackable/trackable.h"
+#include "src/macros.h"
+#include "src/trackable/trackable.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN

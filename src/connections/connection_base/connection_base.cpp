@@ -1,4 +1,4 @@
-#include "connection_base.h"
+#include "src/connections/connection_base/connection_base.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN

@@ -1,4 +1,4 @@
-#include "slot_base.h"
+#include "src/slots/slot_base/slot_base.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN

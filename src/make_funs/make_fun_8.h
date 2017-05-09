@@ -29,8 +29,8 @@
 
 #include <stdexcept>
 
-#include "macros.h"
-#include "functors/functor_8.hpp"
+#include "src/macros.h"
+#include "src/functors/functor_8.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

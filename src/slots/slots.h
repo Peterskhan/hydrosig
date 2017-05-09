@@ -27,17 +27,17 @@
  *
  */
 
-#include "slot_base/slot_base.h"
+#include "src/slots/slot_base/slot_base.h"
 
-#include "slot_0.hpp"
-#include "slot_1.hpp"
-#include "slot_2.hpp"
-#include "slot_3.hpp"
-#include "slot_4.hpp"
-#include "slot_5.hpp"
-#include "slot_6.hpp"
-#include "slot_7.hpp"
-#include "slot_8.hpp"
+#include "src/slots/slot_0.hpp"
+#include "src/slots/slot_1.hpp"
+#include "src/slots/slot_2.hpp"
+#include "src/slots/slot_3.hpp"
+#include "src/slots/slot_4.hpp"
+#include "src/slots/slot_5.hpp"
+#include "src/slots/slot_6.hpp"
+#include "src/slots/slot_7.hpp"
+#include "src/slots/slot_8.hpp"
 
 
 #endif // HYDROSIG_SLOTS_H_INCLUDED

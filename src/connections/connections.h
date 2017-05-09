@@ -27,18 +27,18 @@
  *
  */
 
-#include "connection_base/connection_base.h"
-#include "wrappers/connection_wrapper.hpp"
+#include "src/connections/connection_base/connection_base.h"
+#include "src/wrappers/connection_wrapper.hpp"
 
-#include "connection_0.hpp"
-#include "connection_1.hpp"
-#include "connection_2.hpp"
-#include "connection_3.hpp"
-#include "connection_4.hpp"
-#include "connection_5.hpp"
-#include "connection_6.hpp"
-#include "connection_7.hpp"
-#include "connection_8.hpp"
+#include "src/connections/connection_0.hpp"
+#include "src/connections/connection_1.hpp"
+#include "src/connections/connection_2.hpp"
+#include "src/connections/connection_3.hpp"
+#include "src/connections/connection_4.hpp"
+#include "src/connections/connection_5.hpp"
+#include "src/connections/connection_6.hpp"
+#include "src/connections/connection_7.hpp"
+#include "src/connections/connection_8.hpp"
 
 
 #endif // HYDROSIG_CONNECTIONS_H_INCLUDED

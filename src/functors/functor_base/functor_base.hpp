@@ -29,7 +29,7 @@
 
 #include <exception>
 
-#include "macros.h"
+#include "src/macros.h"
 
 
 HYDROSIG_NAMESPACE_BEGIN

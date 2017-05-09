@@ -27,10 +27,10 @@
  *
  */
 
-#include "macros.h"
-#include "connection_base/connection_base.h"
-#include "slots/slot_2.hpp"
-#include "signals/signal_2.hpp"
+#include "src/macros.h"
+#include "src/connections/connection_base/connection_base.h"
+#include "src/slots/slot_2.hpp"
+#include "src/signals/signal_2.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

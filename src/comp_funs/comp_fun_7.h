@@ -27,8 +27,8 @@
  *
  */
 
-#include "macros.h"
-#include "functors/functor_7.hpp"
+#include "src/macros.h"
+#include "src/functors/functor_7.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

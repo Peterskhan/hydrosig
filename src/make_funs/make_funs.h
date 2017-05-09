@@ -27,15 +27,15 @@
  *
  */
 
-#include "make_fun_0.h"
-#include "make_fun_1.h"
-#include "make_fun_2.h"
-#include "make_fun_3.h"
-#include "make_fun_4.h"
-#include "make_fun_5.h"
-#include "make_fun_6.h"
-#include "make_fun_7.h"
-#include "make_fun_8.h"
+#include "src/make_funs/make_fun_0.h"
+#include "src/make_funs/make_fun_1.h"
+#include "src/make_funs/make_fun_2.h"
+#include "src/make_funs/make_fun_3.h"
+#include "src/make_funs/make_fun_4.h"
+#include "src/make_funs/make_fun_5.h"
+#include "src/make_funs/make_fun_6.h"
+#include "src/make_funs/make_fun_7.h"
+#include "src/make_funs/make_fun_8.h"
 
 
 #endif // HYDROSIG_MAKE_FUNS_H_INCLUDED

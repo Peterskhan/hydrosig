@@ -27,18 +27,18 @@
  *
  */
 
-#include "macros.h"
-#include "wrappers/wrapper_helpers.h"
+#include "src/macros.h"
+#include "src/wrappers/wrapper_helpers.h"
 
-#include "signals/signal_0.hpp"
-#include "signals/signal_1.hpp"
-#include "signals/signal_2.hpp"
-#include "signals/signal_3.hpp"
-#include "signals/signal_4.hpp"
-#include "signals/signal_5.hpp"
-#include "signals/signal_6.hpp"
-#include "signals/signal_7.hpp"
-#include "signals/signal_8.hpp"
+#include "src/signals/signal_0.hpp"
+#include "src/signals/signal_1.hpp"
+#include "src/signals/signal_2.hpp"
+#include "src/signals/signal_3.hpp"
+#include "src/signals/signal_4.hpp"
+#include "src/signals/signal_5.hpp"
+#include "src/signals/signal_6.hpp"
+#include "src/signals/signal_7.hpp"
+#include "src/signals/signal_8.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN

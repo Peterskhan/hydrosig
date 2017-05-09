@@ -27,15 +27,15 @@
  *
  */
 
-#include "config.h"
-#include "macros.h"
-#include "connections/connections.h"
-#include "functors/functors.h"
-#include "comp_funs/comp_funs.h"
-#include "make_funs/make_funs.h"
-#include "signals/signals.h"
-#include "slots/slots.h"
-#include "trackable/trackable.h"
+#include "src/config.h"
+#include "src/macros.h"
+#include "src/connections/connections.h"
+#include "src/functors/functors.h"
+#include "src/comp_funs/comp_funs.h"
+#include "src/make_funs/make_funs.h"
+#include "src/signals/signals.h"
+#include "src/slots/slots.h"
+#include "src/trackable/trackable.h"
 
 
 #endif // HYDROSIG_HYDROSIG_H_INCLUDED

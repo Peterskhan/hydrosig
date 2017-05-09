@@ -27,17 +27,17 @@
  *
  */
 
-#include "functor_base/functor_base.hpp"
+#include "src/functors/functor_base/functor_base.hpp"
 
-#include "functor_0.hpp"
-#include "functor_1.hpp"
-#include "functor_2.hpp"
-#include "functor_3.hpp"
-#include "functor_4.hpp"
-#include "functor_5.hpp"
-#include "functor_6.hpp"
-#include "functor_7.hpp"
-#include "functor_8.hpp"
+#include "src/functors/functor_0.hpp"
+#include "src/functors/functor_1.hpp"
+#include "src/functors/functor_2.hpp"
+#include "src/functors/functor_3.hpp"
+#include "src/functors/functor_4.hpp"
+#include "src/functors/functor_5.hpp"
+#include "src/functors/functor_6.hpp"
+#include "src/functors/functor_7.hpp"
+#include "src/functors/functor_8.hpp"
 
 
 #endif // HYDROSIG_FUNCTORS_H_INCLUDED

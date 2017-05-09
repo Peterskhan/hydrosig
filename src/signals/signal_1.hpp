@@ -29,12 +29,12 @@
 
 #include <type_traits>
 
-#include "macros.h"
-#include "signal_base/signal_base.h"
-#include "make_funs/make_fun_1.h"
-#include "comp_funs/comp_fun_1.h"
-#include "slots/slot_1.hpp"
-#include "connections/connection_1.hpp"
+#include "src/macros.h"
+#include "src/signals/signal_base/signal_base.h"
+#include "src/make_funs/make_fun_1.h"
+#include "src/comp_funs/comp_fun_1.h"
+#include "src/slots/slot_1.hpp"
+#include "src/connections/connection_1.hpp"
 
 
 HYDROSIG_NAMESPACE_BEGIN
