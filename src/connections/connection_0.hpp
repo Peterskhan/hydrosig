@@ -170,9 +170,9 @@ public:
 
     /**
      * @brief   Swaps this connection_0 with another.
-     * @param   rhs The other connection_0 object.
+     * @param   src The other connection_0 object.
      */
-    void swap(connection_0 &rhs);
+    void swap(connection_0 &src);
 
     /**
      * @brief   Compares this connection_0 with another
@@ -314,20 +314,28 @@ connection_0<HYDROSIG_0_ARG>::connection_0(
 
 HYDROSIG_TEMPLATE_0_ARG
 connection_0<HYDROSIG_0_ARG>::connection_0(const connection_0 &src)
-    : connection_base(src.m_validator),
-      m_slot(src.m_slot),
-      m_signal(src.m_signal)
+    : connection_base()
 {
-    ;
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN
+
+    m_validator = src.m_validator;
+    m_slot = src.m_slot;
+    m_signal = src.m_signal;
+
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_END
 }
 
 HYDROSIG_TEMPLATE_0_ARG
 connection_0<HYDROSIG_0_ARG>::connection_0(connection_0 &&src)
-    : connection_base(std::move(src.m_validator)),
-      m_slot(std::move(src.m_slot)),
-      m_signal(std::move(src.m_signal))
+    : connection_base()
 {
-    ;
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN
+
+    m_validator = std::move(src.m_validator);
+    m_slot = std::move(src.m_slot);
+    m_signal = std::move(src.m_signal);
+
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_END
 }
 
 HYDROSIG_TEMPLATE_0_ARG
@@ -342,9 +350,15 @@ connection_0<HYDROSIG_0_ARG>& connection_0<HYDROSIG_0_ARG>::operator=(
 {
     if(this == &src) return *this;
 
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN
+    HYDROSIG_PROTECTED_BLOCK_BEGIN
+
     m_validator = src.m_validator;
     m_slot = src.m_slot;
     m_signal = src.m_signal;
+
+    HYDROSIG_PROTECTED_BLOCK_END
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_END
 
     return *this;
 }
@@ -355,9 +369,15 @@ connection_0<HYDROSIG_0_ARG>& connection_0<HYDROSIG_0_ARG>::operator=(
 {
     if(this == &src) return *this;
 
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN
+    HYDROSIG_PROTECTED_BLOCK_BEGIN
+
     m_validator = std::move(src.m_validator);
     m_slot = std::move(src.m_slot);
     m_signal = std::move(src.m_signal);
+
+    HYDROSIG_PROTECTED_BLOCK_END
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_END
 
     return *this;
 }
@@ -427,11 +447,17 @@ Return_type connection_0<HYDROSIG_0_ARG>::operator()()
 }
 
 HYDROSIG_TEMPLATE_0_ARG
-void connection_0<HYDROSIG_0_ARG>::swap(connection_0 &rhs)
+void connection_0<HYDROSIG_0_ARG>::swap(connection_0 &src)
 {
-    std::swap(m_validator, rhs.m_validator);
-    std::swap(m_slot, rhs.m_slot);
-    std::swap(m_signal, rhs.m_signal);
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_BEGIN
+    HYDROSIG_PROTECTED_BLOCK_BEGIN
+
+    std::swap(m_validator, src.m_validator);
+    std::swap(m_slot, src.m_slot);
+    std::swap(m_signal, src.m_signal);
+
+    HYDROSIG_PROTECTED_BLOCK_END
+    HYDROSIG_REMOTE_PROTECTED_BLOCK_END
 }
 
 HYDROSIG_TEMPLATE_0_ARG
@@ -486,9 +512,9 @@ HYDROSIG_TEMPLATE_0_ARG
 scoped_connection_0<HYDROSIG_0_ARG>& scoped_connection_0<HYDROSIG_0_ARG>::operator=(
         const connection_0<HYDROSIG_0_ARG> &src)
 {
-    this->m_validator = src.m_validator;
-    this->m_signal = src.m_signal;
-    this->m_slot = src.m_slot;
+    if(this == &src) return *this;
+
+    connection_0<HYDROSIG_0_ARG>::operator=(src);
 
     return *this;
 }
@@ -499,9 +525,8 @@ scoped_connection_0<HYDROSIG_0_ARG>& scoped_connection_0<HYDROSIG_0_ARG>::operat
 {
     if(this == &src) return *this;
 
-    this->m_validator = std::move(src.m_validator);
-    this->m_signal = std::move(src.m_signal);
-    this->m_slot = std::move(src.m_slot);
+    connection_0<HYDROSIG_0_ARG>::operator=(
+                std::forward<connection_0<HYDROSIG_0_ARG>>(src));
 
     return *this;
 }
@@ -510,14 +535,19 @@ HYDROSIG_TEMPLATE_0_ARG
 scoped_connection_0<HYDROSIG_0_ARG>& scoped_connection_0<HYDROSIG_0_ARG>::operator=(
         connection_0<HYDROSIG_0_ARG> &&src)
 {
-    this->m_validator = std::move(src.m_validator);
-    this->m_signal = std::move(src.m_signal);
-    this->m_slot = std::move(src.m_slot);
+    if(this == &src) return *this;
+
+    connection_0<HYDROSIG_0_ARG>::operator=(
+                std::forward<connection_0<HYDROSIG_0_ARG>>(src));
+
+    return *this;
 }
 
 HYDROSIG_TEMPLATE_0_ARG
 connection_0<HYDROSIG_0_ARG> scoped_connection_0<HYDROSIG_0_ARG>::release()
 {
+    HYDROSIG_PROTECTED_BLOCK_BEGIN
+
     connection_0<HYDROSIG_0_ARG> released(this->m_slot,
                                           this->m_signal,
                                           this->m_validator);
@@ -525,6 +555,8 @@ connection_0<HYDROSIG_0_ARG> scoped_connection_0<HYDROSIG_0_ARG>::release()
     this->m_validator = nullptr;
     this->m_signal = nullptr;
     this->m_slot.reset();
+
+    HYDROSIG_PROTECTED_BLOCK_END
 
     return released;
 }

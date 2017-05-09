@@ -55,6 +55,11 @@ class connection_base
 {
 public:
     /**
+     * @brief   Constructs an empty connection_base.
+     */
+    connection_base();
+
+    /**
      * @brief   Constructs a connection_base with the provided
      *          connection_validator.
      * @param   validator The connection_validator to use.
@@ -93,6 +98,9 @@ protected:
     /**< The connection validator of the represented slot */
     HYDROSIG_SHARED_PTR_TYPE<connection_validator> m_validator;
 
+    /**< Mutex used for synchronisation */
+    mutable HYDROSIG_MUTEX_TYPE m_mutex;
+
 };
 
 /**
@@ -119,6 +127,12 @@ public:
  * Member definitions:
  * -------------------
  */
+
+inline connection_base::connection_base()
+    : m_validator(nullptr)
+{
+    ;
+}
 
 inline connection_base::connection_base(
         HYDROSIG_SHARED_PTR_TYPE<connection_validator> validator)
